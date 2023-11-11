@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-
+import mongoose, { CallbackError } from "mongoose";
+import bcrypt from "bcrypt";
 
 
 const UserSchema = new mongoose.Schema({
@@ -13,6 +13,17 @@ const UserSchema = new mongoose.Schema({
     phoneNumber: {type: String, required: false},
     createdAt: {type: Date, required: true, default: Date.now},
     updatedAt: {type: Date, required: true, default: Date.now},
+})
+
+UserSchema.pre('save', async function(next: any){
+    try {
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(this.password, salt);
+        this.password = hashedPassword;
+        next();
+    } catch (error) {
+        next(error);
+    }
 })
 
 const User = mongoose.model("User", UserSchema);
