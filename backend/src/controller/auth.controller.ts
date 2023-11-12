@@ -1,7 +1,7 @@
 import { Response, Request } from 'express';
 import { createUser, findUserByEmail } from '../service/user.service';
 import { userData } from '../helper/validatre';
-import { generateToken } from '../helper/jwt';
+import { generateAccessToken, generateRefreshToken } from '../helper/jwt';
 import logger from '../helper/logger';
 
 
@@ -15,8 +15,9 @@ export const registerUser = async (req: Request, res: any) => {
         const oldUser = await findUserByEmail(email);
         if(oldUser) return res.status(400).send('User already exists');
         const user = await createUser({ email, password, ...values });
-        const token = generateToken(res, user);
-        return res.status(200).send({user, token});
+        const accessToken = generateAccessToken(res, user);
+        const refreshToken = generateRefreshToken(res, user);
+        return res.status(200).send({user, accessToken, refreshToken});
     } catch (error: any) {
         return res.status(500).send(error.message);
     }
@@ -34,8 +35,9 @@ export const loginUser = async (req: Request, res: any) => {
         if(!user) return res.status(400).send('User does not exist');
         const isMatch = await user.comparePassword(password);
         if(!isMatch) return res.status(400).send('Incorrect password');
-        const token = generateToken(res, user);
-        return res.status(200).send({user, token});
+        const accessToken = generateAccessToken(res, user);
+        const refreshToken = generateRefreshToken(res, user);
+        return res.status(200).send({user, accessToken, refreshToken});
     } catch (error: any) {
         return res.status(500).send(error.message);
     }

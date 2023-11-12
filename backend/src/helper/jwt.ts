@@ -6,7 +6,7 @@ require('dotenv').config();
 
 const access_secret = process.env.ACCESS_TOKEN_SECRET as string;
 
-export const generateToken = (res: Response, user: any) => {
+export const generateAccessToken = (res: Response, user: any) => {
     const payload = {
         id:user._id,
         email: user.email,
@@ -16,3 +16,13 @@ export const generateToken = (res: Response, user: any) => {
     return token;
 }
 
+
+export const generateRefreshToken = (res: Response, user: any) => {
+    const payload = {
+        id:user._id,
+        email: user.email,
+        role: user.role
+    }
+    const token = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET as string, {expiresIn: '1y'});
+    return token;
+}
