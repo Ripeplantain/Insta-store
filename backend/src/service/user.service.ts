@@ -12,7 +12,6 @@ interface User {
     phoneNumber: string;
     createdAt: Date;
     updatedAt: Date;
-
 }
 
 
