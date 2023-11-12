@@ -26,3 +26,7 @@ export const generateRefreshToken = (res: Response, user: any) => {
     const token = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET as string, {expiresIn: '1y'});
     return token;
 }
+
+export const verifyRefreshToken = (refreshToken: string) => {
+    return jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET as string);
+}
