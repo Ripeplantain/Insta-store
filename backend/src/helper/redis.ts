@@ -3,9 +3,9 @@ import * as redis from "redis";
 
 
 
-const client = redis.createClient();
+const client: any = redis.createClient();
 
-client.on("error", (err) => {
+client.on("error", (err: any) => {
     logger.error(err);
 });
 
