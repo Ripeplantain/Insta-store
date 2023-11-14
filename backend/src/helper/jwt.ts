@@ -1,7 +1,9 @@
 import jwt from 'jsonwebtoken';
+import logger from './logger'
 
 
 require('dotenv').config();
+
 
 
 const access_secret = process.env.ACCESS_TOKEN_SECRET as string;
