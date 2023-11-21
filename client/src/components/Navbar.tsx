@@ -1,14 +1,27 @@
 import { CartIcon, NavIcon, CloseIcon } from "../assets/icons"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { AnimatePresence, motion } from "framer-motion"
+import { Link } from "react-router-dom"
 
 
 
 const Navbar = () => {
     const [showNav, setShowNav] = useState(false)
+    const [isTopPage, setIsTopPage] = useState(true)
+    const navBackground = isTopPage ? "bg-primary" : "bg-white"
+
+    useEffect(() => {
+        window.addEventListener("scroll", () => {
+            if (window.scrollY >= 100) {
+                setIsTopPage(false)
+            } else {
+                setIsTopPage(true)
+            }
+        })
+    }, [])
 
     return (
-        <header className="bg-primary w-full top-0 py-6">
+        <header className={`${navBackground} w-full top-0 py-6`}>
             <div className="flex justify-around items-center">
                 <h1 className="font-playfair tracking-wider text-4xl">InstaStore</h1>
                 <nav>
@@ -32,9 +45,11 @@ const Navbar = () => {
                             </div>
                         </li>
                         <li>
-                            <button className="bg-black text-white px-6 py-3 hover:scale-90">
+                            <Link
+                                to="/login"
+                                className="bg-black text-white px-6 py-3 hover:scale-90">
                                 Login
-                            </button>
+                            </Link>
                         </li>
                     </ul>
                 </nav>
@@ -56,9 +71,11 @@ const Navbar = () => {
                                 <span>Cart</span>
                             </div>
                         </div>
-                        <button className="bg-black text-white px-6 py-3 hover:scale-90">
+                        <Link
+                            to="/login"
+                            className="bg-black text-white px-6 py-3 hover:scale-90">
                             Login
-                        </button>
+                        </Link>
                     </motion.div>
                 )}
             </AnimatePresence>
