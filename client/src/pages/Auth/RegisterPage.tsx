@@ -1,12 +1,16 @@
 import { Login, Logo } from "../../assets/image"
-import { useForm } from "react-hook-form"
+import { SubmitHandler, useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { registerSchema } from "../../helpers/validation"
 import { Link } from "react-router-dom"
+import useAuth from "../../hooks/useAuth"
+import { RegisterForm } from "../../helpers/types/form"
 
 
 
 const RegisterPage = () => {
+
+  const { registerUser } = useAuth()
 
   const styling = {
     backgroundImage: `url(${Login})`,
@@ -19,6 +23,8 @@ const RegisterPage = () => {
     resolver: yupResolver(registerSchema)
   })
 
+  const onSubmit: SubmitHandler<RegisterForm> = async (data) => registerUser(data)
+
   return (
     <div
       className="flex justify-center items-center"
@@ -28,7 +34,7 @@ const RegisterPage = () => {
         <img src={Logo} alt="Logo" className="w-28 mx-auto mb-11" />
         <span className="font-roboto">Please enter your credentials</span>
         <div className="mt-6 mb-4 font-roboto">
-          <form onSubmit={handleSubmit((data) => console.log(data))}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex">
               <div className="flex flex-col space-y-2">
                 <label

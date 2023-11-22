@@ -16,7 +16,7 @@ const registerSchema = yup
         address: yup.string().required("Address is required").min(2, "Address must be at least 2 characters"),
         phoneNumber: yup.string().required("Phone Number is required").min(10, "Phone Number must be at least 10 characters"),
         email: yup.string().required("Email is required").email("Email is invalid"),
-        password: yup.string().required("Password is required").min(10, "Password must be at least 6 characters"),
+        password: yup.string().required("Password is required").min(10, "Password must be at least 10 characters"),
         confirmPassword: yup.string().required("Confirm Password is required").oneOf([yup.ref("password")], "Passwords must match")
     })
 

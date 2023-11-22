@@ -1,7 +1,10 @@
-import { CartIcon, NavIcon, CloseIcon } from "../assets/icons"
+import { CartIcon, NavIcon, CloseIcon, UserIcon } from "../assets/icons"
 import { useState, useEffect } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import { Link } from "react-router-dom"
+import { useSelector } from "react-redux"
+import { selectIsAuth, selectUser, selectRefreshToken } from "../state/features/authSlice"
+import useAuth from "../hooks/useAuth"
 
 
 
@@ -9,6 +12,17 @@ const Navbar = () => {
     const [showNav, setShowNav] = useState(false)
     const [isTopPage, setIsTopPage] = useState(true)
     const navBackground = isTopPage ? "bg-primary" : "bg-white"
+    const isAuth = useSelector(selectIsAuth)
+    const user = useSelector(selectUser)
+    const { logout } = useAuth()
+    const refreshToken = useSelector(selectRefreshToken)
+
+    const handleLogout = () => {
+        const data: {refreshToken:string | null} = {
+            refreshToken
+        }
+        logout(data)
+    }
 
     useEffect(() => {
         window.addEventListener("scroll", () => {
@@ -37,19 +51,36 @@ const Navbar = () => {
                     )}
 
                     <ul className="hidden md:flex items-center gap-11 font-roboto">
-                        <li className="flex items-center gap-1 hover:scale-90">
+                        <li className="flex items-center gap-1 hover:scale-90 cursor-pointer">
                             <CartIcon className="text-3xl" />
                             <div className="flex flex-col">
                                 <span className="bg-white rounded-full text-center">1</span>
                                 <span>Cart</span>
                             </div>
                         </li>
+                        <li className="flex items-center gap-1 cursor-pointer hover:scale-90">
+                            <UserIcon className="text-3xl" />
+                            <div className="flex flex-col">
+                                <span>Welcome,</span>
+                                <span>{user?.firstName}</span>
+                            </div>
+                        </li>
                         <li>
-                            <Link
-                                to="/login"
-                                className="bg-black text-white px-6 py-3 hover:scale-90">
-                                Login
-                            </Link>
+                            {
+                                isAuth ? (
+                                    <button
+                                        onClick={handleLogout}
+                                        className="bg-black text-white px-6 py-3 hover:scale-90">
+                                        Logout
+                                    </button>
+                                ) : (
+                                    <Link
+                                        to="/login"
+                                        className="bg-black text-white px-6 py-3 hover:scale-90">
+                                        Login
+                                    </Link>
+                                )
+                            }
                         </li>
                     </ul>
                 </nav>
@@ -71,11 +102,21 @@ const Navbar = () => {
                                 <span>Cart</span>
                             </div>
                         </div>
-                        <Link
-                            to="/login"
-                            className="bg-black text-white px-6 py-3 hover:scale-90">
-                            Login
-                        </Link>
+                        {
+                            isAuth ? (
+                                <button
+                                    onClick={handleLogout}
+                                    className="bg-black text-white px-6 py-3 hover:scale-90">
+                                    Logout
+                                </button>
+                            ) : (
+                                <Link
+                                    to="/login"
+                                    className="bg-black text-white px-6 py-3 hover:scale-90">
+                                    Login
+                                </Link>
+                            )
+                        }
                     </motion.div>
                 )}
             </AnimatePresence>

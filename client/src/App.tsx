@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import { LoginPage, RegisterPage, HomePage } from "./pages"
-
+import { ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 
 
@@ -14,6 +15,7 @@ const App = () => {
           <Route path="/register" element={<RegisterPage />} />
         </Routes>
       </Router>
+      <ToastContainer />
     </>
   )
 }
