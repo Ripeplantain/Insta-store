@@ -1,4 +1,3 @@
-// import { PrivateRoute, PublicRoute } from "./components/ProtectedRoute"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import { LoginPage, RegisterPage, HomePage } from "./pages"
 

@@ -58,7 +58,7 @@ const LoginPage = () => {
             </button>
           </form>
         </div>
-        <span>Already have an account? <Link className="text-blue-700 cursor-pointer" to="/register">
+        <span>Don&apos;t have an account? <Link className="text-blue-700 cursor-pointer" to="/register">
           Click Here
         </Link></span>
       </div>
