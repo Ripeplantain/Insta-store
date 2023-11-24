@@ -6,8 +6,8 @@ import { verifyAccessToken } from '../middleware/authentication.middleware';
 
 const router = express.Router();
 
-router.post('/cartegory', verifyAccessToken, createCategoryController);
-router.get('/cartegory', verifyAccessToken, listCategoriesController);
-router.delete('/cartegory/:id', verifyAccessToken, deleteCategoryController);
+router.post('/api/cartegory', verifyAccessToken, createCategoryController);
+router.get('/api/cartegory', listCategoriesController);
+router.delete('/api/cartegory/:id', verifyAccessToken, deleteCategoryController);
 
 export default router;

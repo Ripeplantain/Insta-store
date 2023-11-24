@@ -1,25 +1,33 @@
-
+import { Background } from "../assets/image"
 
 
 const HeroSection = () => {
+
+    const styling = {
+        backgroundImage: `url(${Background})`,
+        backgroundSize: 'cover',
+        backgroundCover: 'center',
+        height: '80vh'
+    }
+
     return (
-        <section className="bg-primary flex justify-center items-center text-center py-20">
-            <div>
-                <h1 className="text-white text-6xl font-playfair tracking-wider">
-                    Find whatever you need with us</h1>
-                <p className="text-white text-xl font-roboto tracking-wide mt-4">
-                    With seamless payment and delivery, we are here to make your life easier
-                </p>
-                <div>
-                    <input
-                        className="px-4 py-2 rounded-md mt-6" 
-                        type="text" />
-                    <button
-                        className="bg-black text-white px-4 py-2 rounded-md ml-4">
-                        Search
-                    </button>
-                </div>
-            </div>
+        <section
+            style={styling}
+            className="flex justify-center items-center overflow-hidden relative"
+        >
+        <div className="absolute top-0 left-0 w-full h-[80vh] bg-black/80"></div>
+        <div className="z-10 text-center">
+            <h1 className="text-white font-playfair text-5xl">Your Digital Marketplace</h1>
+            <p className="text-white font-roboto text-sm mt-6">Your one stop shop for all your needs</p>
+            <input
+                placeholder="Search for products"
+                className="bg-white px-4 py-2 rounded-md mt-6 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                type="text" />
+            <button
+                className="bg-black text-white px-6 py-3 rounded-md mt-6 hover:scale-90">
+                Search
+        </button>
+        </div>
         </section>
     )
 }

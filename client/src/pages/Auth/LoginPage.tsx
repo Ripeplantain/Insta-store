@@ -13,7 +13,6 @@ const LoginPage = () => {
     const { login } = useAuth()
 
   const styling = {
-    
     backgroundImage: `url(${Login})`,
     backgroundSize: 'cover',
     backgroundCover: 'center',

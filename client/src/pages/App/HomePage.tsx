@@ -1,4 +1,4 @@
-import { HeroSection,Navbar, Products } from "../../components"
+import { HeroSection,Navbar, Products, Cartegory } from "../../components"
 
 
 
@@ -7,6 +7,7 @@ const HomePage = () => {
         <>
             <Navbar />
             <HeroSection />
+            <Cartegory />
             <Products />
         </>
     )

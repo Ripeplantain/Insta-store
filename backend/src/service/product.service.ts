@@ -20,7 +20,7 @@ export const createProduct = async (product: Product) => {
 }
 
 export const listProducts = async () => {
-    return await Product.find();
+    return await Product.find({quantity: {$gt: 0}});
 }
 
 export const deleteProduct = async (id: string) => {

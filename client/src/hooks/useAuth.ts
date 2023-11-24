@@ -4,13 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCredentials, removeCredentials } from "../state/features/authSlice";
 import { LoginForm, RegisterForm } from "../helpers/types/form";
+import { ErrorState } from "../helpers/types/error";
 
-
-interface ErrorState {
-    response: {
-        data: string
-    }
-}
 
 const useAuth = () => {
     const {axiosInstance } = useAxios()

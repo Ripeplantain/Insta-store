@@ -6,12 +6,12 @@ import { createProductController, listOwnerProductsController, listProductsContr
 
 const router = express.Router();
 
-router.post('/product', verifyAccessToken, createProductController);
-router.get('/product', verifyAccessToken, listOwnerProductsController);
-router.get('/product/all', verifyAccessToken, listProductsController);
-router.delete('/product/:id', verifyAccessToken, deleteProductController);
-router.put('/product/:id', verifyAccessToken, updateProductController);
-router.get('/product/:id', verifyAccessToken, getProductController);
+router.post('/api/product', verifyAccessToken, createProductController);
+router.get('/api/product', verifyAccessToken, listOwnerProductsController);
+router.get('/api/product/all',  listProductsController);
+router.delete('/api/product/:id', verifyAccessToken, deleteProductController);
+router.put('/api/product/:id', verifyAccessToken, updateProductController);
+router.get('/api/product/:id', verifyAccessToken, getProductController);
 
 
 export default router;

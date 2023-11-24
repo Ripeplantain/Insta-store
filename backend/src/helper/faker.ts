@@ -30,6 +30,7 @@ export const generateProducts = async () => {
             description: faker.lorem.sentence(),
             cartegory_id: faker.random.arrayElement(categories)._id,
             price: faker.random.number({ min: 10, max: 1000, precision: 0.01 }),
+            picture: faker.image.imageUrl(),
             quantity: faker.random.number({ min: 1, max: 100 }),
             owner: '654ec3aa24dfc2703852c500',
         })
