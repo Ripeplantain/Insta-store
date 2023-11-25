@@ -20,7 +20,7 @@ export const createProduct = async (product: Product) => {
 }
 
 export const listProducts = async () => {
-    return await Product.find({quantity: {$gt: 0}});
+    return await Product.find({quantity: {$gt: 0}}).sort({createdAt: -1});
 }
 
 export const deleteProduct = async (id: string) => {
@@ -36,7 +36,7 @@ export const getProduct = async (id: string) => {
 }
 
 export const searchProduct = async (name: string) => {
-    return await Product.find({ name: { $regex: name, $options: 'i' } });
+    return await Product.find({ name: { $regex: name, $options: 'i' } }).sort({createdAt: -1});
 }
 
 export const getProductByOwner = async (id: string) => {
@@ -44,5 +44,5 @@ export const getProductByOwner = async (id: string) => {
 }
 
 export const getProductByCartegory = async (id: string) => {
-    return await Product.find({ cartegory_id: id });
+    return await Product.find({ cartegory_id: id }).sort({createdAt: -1});
 }

@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import { LoginPage, RegisterPage, HomePage, ItemPage, CartPage } from "./pages"
 import { ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
+import "./App.css"
 
 
 
