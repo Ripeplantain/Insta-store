@@ -1,8 +1,8 @@
 import { Response, Request } from "express";
 import { productData } from "../helper/validatre";
 import { createProduct, getProduct, getProductByOwner, updateProduct, 
-        deleteProduct, listProducts } from "../service/product.service";
-
+        deleteProduct, listProducts, searchProduct } from "../service/product.service";
+import logger from "../helper/logger";
 
 
 interface Product {
@@ -48,12 +48,18 @@ export const listOwnerProductsController = async (req: any, res: Response) => {
 // @access Private
 export const listProductsController = async (req: Request, res: Response) => {
     try {
-        const products = await listProducts();
+        let products;
+        if (req.query.name) {
+            products = await searchProduct(req.query.name.toString());
+        } else {
+            products = await listProducts();
+        }
+
         return res.status(200).json(products);
     } catch (error) {
-        return res.status(500).json(error);
+        return res.status(500).json({ error: 'Internal server error' });
     }
-}
+};
 
 // @desc   delete product
 // @route  DELETE /api/product/:id
@@ -90,6 +96,19 @@ export const getProductController = async (req: Request, res: Response) => {
         const { id } = req.params;
         const product = await getProduct(id);
         return res.status(200).json(product);
+    } catch (error) {
+        return res.status(500).json(error);
+    }
+}
+
+// @desc   search product
+// @route  GET /api/product/search
+// @access Public
+export const searchProductController = async (req: Request, res: Response) => {
+    try {
+        const { name } = req.params;
+        const products = await searchProduct(name);
+        return res.status(200).json(products);
     } catch (error) {
         return res.status(500).json(error);
     }

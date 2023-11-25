@@ -35,6 +35,10 @@ export const getProduct = async (id: string) => {
     return await Product.findById(id);
 }
 
+export const searchProduct = async (name: string) => {
+    return await Product.find({ name: { $regex: name, $options: 'i' } });
+}
+
 // export const getProductByCategory = async (id: string) => {
 //     return await Product.find({ cartegory_id: id });
 // }

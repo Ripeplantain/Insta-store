@@ -1,13 +1,26 @@
 import { Background } from "../assets/image"
+import { searchAsyncProducts } from "../state/features/productSlice"
+import { useDispatch } from "react-redux"
+import { useRef } from "react"
 
 
 const HeroSection = () => {
+
+    const dispatch = useDispatch()
+    const searchRef = useRef<HTMLInputElement>(null)
 
     const styling = {
         backgroundImage: `url(${Background})`,
         backgroundSize: 'cover',
         backgroundCover: 'center',
         height: '80vh'
+    }
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        if (searchRef.current) {
+            dispatch(searchAsyncProducts(searchRef.current.value))
+        }
     }
 
     return (
@@ -19,14 +32,18 @@ const HeroSection = () => {
         <div className="z-10 text-center">
             <h1 className="text-white font-playfair text-5xl">Your Digital Marketplace</h1>
             <p className="text-white font-roboto text-sm mt-6">Your one stop shop for all your needs</p>
-            <input
-                placeholder="Search for products"
-                className="bg-white px-4 py-2 rounded-md mt-6 focus:outline-none focus:ring-2 focus:ring-primary/50"
-                type="text" />
-            <button
-                className="bg-black text-white px-6 py-3 rounded-md mt-6 hover:scale-90">
-                Search
-        </button>
+            <form onSubmit={handleSubmit}>
+                <input
+                    ref={searchRef}
+                    placeholder="Search for products"
+                    className="bg-white px-4 py-2 rounded-md mt-6 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                    type="text" />
+                <button
+                    type="submit"
+                    className="bg-black text-white px-6 py-3 rounded-md mt-6 hover:scale-90">
+                    Search
+                </button>
+            </form>
         </div>
         </section>
     )
