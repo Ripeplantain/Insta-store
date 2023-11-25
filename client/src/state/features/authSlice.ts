@@ -24,7 +24,7 @@ export interface AuthState {
 
 const initialState: AuthState = {
     user: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!) : null,
-    isAuth: localStorage.getItem('accessToken') ? true : false,
+    isAuth: localStorage.getItem('isAuth') ? JSON.parse(localStorage.getItem('isAuth')!) : false,
     accessToken: localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : null,
     refreshToken: localStorage.getItem('refreshToken') ? localStorage.getItem('refreshToken') : null,
 }
@@ -41,6 +41,7 @@ export const authSlice = createSlice({
             localStorage.setItem('accessToken', action.payload.accessToken!)
             localStorage.setItem('refreshToken', action.payload.refreshToken!)
             localStorage.setItem('user', JSON.stringify(action.payload.user))
+            localStorage.setItem('isAuth', true.toString())
         },
         removeCredentials: (state) => {
             state.user = null
@@ -50,6 +51,7 @@ export const authSlice = createSlice({
             localStorage.removeItem('accessToken')
             localStorage.removeItem('refreshToken')
             localStorage.removeItem('user')
+            localStorage.removeItem('isAuth')
         },
         updateUser: (state, action: PayloadAction<UserState>) => {
             state.user = action.payload

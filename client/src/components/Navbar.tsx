@@ -3,7 +3,7 @@ import { useState, useEffect } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import { Link } from "react-router-dom"
 import { useSelector } from "react-redux"
-import { selectIsAuth, selectUser, selectRefreshToken } from "../state/features/authSlice"
+import {  selectUser, selectRefreshToken } from "../state/features/authSlice"
 import useAuth from "../hooks/useAuth"
 import { selectCartCount } from "../state/features/cartSlice"
 import { useNavigate } from "react-router-dom"
@@ -14,7 +14,6 @@ const Navbar = () => {
     const [showNav, setShowNav] = useState(false)
     const [isTopPage, setIsTopPage] = useState(true)
     const navBackground = isTopPage ? "bg-transparent" : "bg-black"
-    const isAuth = useSelector(selectIsAuth)
     const user = useSelector(selectUser)
     const { logout } = useAuth()
     const refreshToken = useSelector(selectRefreshToken)
@@ -74,7 +73,7 @@ const Navbar = () => {
                         </li>
                         <li>
                             {
-                                isAuth ? (
+                                user ? (
                                     <button
                                         onClick={handleLogout}
                                         className="bg-black text-white px-6 py-3 hover:scale-90">
@@ -112,7 +111,7 @@ const Navbar = () => {
                             </div>
                         </div>
                         {
-                            isAuth ? (
+                            user ? (
                                 <button
                                     onClick={handleLogout}
                                     className="bg-red-600 text-white px-6 py-3 hover:scale-90">
