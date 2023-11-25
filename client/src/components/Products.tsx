@@ -1,10 +1,12 @@
 import { useSelector, useDispatch } from "react-redux"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { fetchAsyncProducts, selectData, selectIsLoading, selectError } from "../state/features/productSlice"
 import useFlashMessages from "../hooks/useFlashMessages"
 import { RotatingLines } from "react-loader-spinner"
 import { Default } from "../assets/image"
 import { addToCart } from "../state/features/cartSlice"
+import { ProductDetail } from "../components"
+import { Product } from "../state/features/productSlice"
 
 
 const Products = () => {
@@ -14,6 +16,8 @@ const Products = () => {
     const isLoading = useSelector(selectIsLoading)
     const error = useSelector(selectError)
     const { showErrorMessage } = useFlashMessages()
+    const [showModal, setShowModal] = useState(false)
+    const [product, setProduct] = useState<Product | null>(null)
 
     useEffect(() => {
         dispatch(fetchAsyncProducts())
@@ -37,6 +41,11 @@ const Products = () => {
         showErrorMessage(error)
     }
 
+    const hanldeClick = (product: Product) => {
+        setShowModal(true)
+        setProduct(product)
+    }
+
     return (
         <section className="my-12">
             <div className="flex flex-col items-center gap-4 my-12">
@@ -48,7 +57,7 @@ const Products = () => {
             <div className="flex flex-wrap justify-center items-center gap-6 p-6">
                 {products.map((product, index) => (
                     <div
-                        className="mb-6 flex flex-col justify-center items-center gap-2 w-64 h-96 bg-white rounded-md shadow-md hover:shadow-xl transition-all duration-300"
+                        className="cursor-pointer mb-6 flex flex-col justify-center items-center gap-2 w-64 h-96 bg-white rounded-md shadow-md hover:shadow-xl transition-all duration-300"
                         key={index}>
                         <img
                             className="w-full h-3/4 object-cover rounded-t-md"
@@ -57,17 +66,25 @@ const Products = () => {
                         />
                         <div className="flex flex-col justify-center items-center gap-2 p-2">
                             <h1 className="font-playfair text-xl">{product.name}</h1>
-                            {/* <p className="font-roboto text-sm">{product.description}</p> */}
                             <h1 className="font-playfair text-xl">${product.price}</h1>
                         </div>
                         <button
-                            onClick={() => dispatch(addToCart(product))}
+                            onClick={() => hanldeClick(product)}
                             className="bg-black text-white px-6 py-3 rounded-md mt-6 hover:scale-90">
-                            Add to cart
+                            View
                         </button>
                     </div>
                 ))}
             </div>
+
+
+            {/* Product Detail Modal */}
+            {showModal && (
+                <ProductDetail
+                    setShowModal={setShowModal}
+                    product={product}
+                />
+            )}
         </section>
     ) 
 }
