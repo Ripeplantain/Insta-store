@@ -2,6 +2,7 @@ import { Product } from "../state/features/productSlice";
 import { Default } from "../assets/image";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../state/features/cartSlice";
+import { CloseIcon } from "../assets/icons";
 
 
 interface Props {
@@ -27,9 +28,7 @@ const ProductDetail: React.FC<Props> = ({setShowModal, product}) => {
                     <button
                         onClick={() => setShowModal(false)}
                         className="text-gray-500 hover:text-gray-700 focus:outline-none">
-                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
+                        <CloseIcon />
                     </button>
                 </div>
                 <div>

@@ -54,7 +54,7 @@ const CartPage = () => {
 
                 <div>
                     <span className="text-3xl">Total</span>
-                    <span className="text-3xl ms-3">${cart.total}</span>
+                    <span className="text-3xl ms-3">${cart.total.toFixed(2)}</span>
                 </div>
                 <button className="bg-green-700 hover:bg-green-900 text-white px-4 py-2 rounded-md mt-2">Checkout</button>
             </div>
