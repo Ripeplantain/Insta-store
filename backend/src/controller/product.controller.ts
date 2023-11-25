@@ -1,7 +1,7 @@
 import { Response, Request } from "express";
 import { productData } from "../helper/validatre";
 import { createProduct, getProduct, getProductByOwner, updateProduct, 
-        deleteProduct, listProducts, searchProduct } from "../service/product.service";
+        deleteProduct, listProducts, searchProduct, getProductByCartegory } from "../service/product.service";
 import logger from "../helper/logger";
 
 
@@ -101,13 +101,14 @@ export const getProductController = async (req: Request, res: Response) => {
     }
 }
 
-// @desc   search product
-// @route  GET /api/product/search
-// @access Public
-export const searchProductController = async (req: Request, res: Response) => {
+
+// @desc get product by cartegory
+// @route GET /api/product/cartegory/:id
+// @access Public 
+export const getProductByCartegoryController = async (req: Request, res: Response) => {
     try {
-        const { name } = req.params;
-        const products = await searchProduct(name);
+        const { id } = req.params;
+        const products = await getProductByCartegory(id);
         return res.status(200).json(products);
     } catch (error) {
         return res.status(500).json(error);

@@ -56,6 +56,19 @@ export const productSlice = createSlice({
                 state.loading = false
                 console.log(action.error.message)
             })
+            .addCase(fetchAsyncByCartegory.pending, (state) => {
+                state.loading = true
+                console.log('pending...')
+            })
+            .addCase(fetchAsyncByCartegory.fulfilled, (state, action: PayloadAction<Product[]>) => {
+                state.data = action.payload
+                state.loading = false
+            })
+            .addCase(fetchAsyncByCartegory.rejected, (state, action) => {
+                state.error = action.error.message as string
+                state.loading = false
+                console.log(action.error.message)
+            })
     }
 })
 
@@ -74,6 +87,15 @@ export const searchAsyncProducts = createAsyncThunk(
         const response = await axios.get(`http://localhost:3000/api/product/all?name=${keyword}`)
         return response.data
     }
+)
+
+export const fetchAsyncByCartegory = createAsyncThunk(
+    "product/fetchAsyncByCartegory",
+    async (cartegory: string) => {
+        const response = await axios.get(`http://localhost:3000/api/product/cartegory/${cartegory}`)
+        return response.data
+    }
+
 )
 
 export const { setProducts } = productSlice.actions
