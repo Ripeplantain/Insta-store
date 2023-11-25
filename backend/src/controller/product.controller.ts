@@ -2,20 +2,7 @@ import { Response, Request } from "express";
 import { productData } from "../helper/validatre";
 import { createProduct, getProduct, getProductByOwner, updateProduct, 
         deleteProduct, listProducts, searchProduct, getProductByCartegory } from "../service/product.service";
-import logger from "../helper/logger";
 
-
-interface Product {
-    name: string;
-    description: string;
-    cartegory_id: string;
-    price: number;
-    quantity: number;
-    owner: string;
-    picture: string;
-    createdAt: Date;
-    updatedAt: Date;
-}
 
 
 // @desc   create product

@@ -24,3 +24,14 @@ export const productData = z.object({
     owner: z.string().min(2).max(100),
     picture: z.string().min(2).max(100),
 })
+
+export const orderData = z.object({
+    client: z.string().min(2).max(100),
+    product: z.string().min(2).max(100),
+    quantity: z.number().min(0),
+    status: z.string().min(2).max(100),
+    address: z.string().min(2).max(100),
+    total: z.number().min(0),
+    createdAt: z.date(),
+    updatedAt: z.date(),
+})
