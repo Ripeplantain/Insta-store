@@ -35,5 +35,5 @@ export const getOrder = async (id: string) => {
 }
 
 export const getUserOrders = async (id: string) => {
-    return await Order.find({ client: id }).sort({createdAt: -1});
+    return await Order.find({ client: id }).populate('product').sort({createdAt: -1});
 }

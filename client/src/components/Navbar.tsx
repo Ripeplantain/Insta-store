@@ -7,12 +7,14 @@ import {  selectUser, selectRefreshToken } from "../state/features/authSlice"
 import useAuth from "../hooks/useAuth"
 import { selectCartCount } from "../state/features/cartSlice"
 import { useNavigate } from "react-router-dom"
+import { DropDown } from "."
 
 
 
 const Navbar = () => {
     const [showNav, setShowNav] = useState(false)
     const [isTopPage, setIsTopPage] = useState(true)
+    const [showModal, setShowModal] = useState(false)
     const navBackground = isTopPage ? "bg-transparent" : "bg-black"
     const user = useSelector(selectUser)
     const { logout } = useAuth()
@@ -64,7 +66,9 @@ const Navbar = () => {
                                 <span className="place-self-start">{cartCount}</span>
                             </div>
                         </li>
-                        <li className="flex items-center gap-1 cursor-pointer hover:scale-90">
+                        <li
+                            onClick={() => setShowModal(!showModal)}
+                            className="flex items-center gap-1 cursor-pointer hover:scale-90">
                             <UserIcon className="text-3xl" />
                             <div className="flex flex-col">
                                 <span>Welcome,</span>
@@ -92,6 +96,11 @@ const Navbar = () => {
                 </nav>
             </div>
 
+            {/* PopUp Modal */}
+            {showModal && (
+                <DropDown />
+            )}
+
             {/* On Mobile Screen */}
             <AnimatePresence>
                 {showNav && (
@@ -108,6 +117,15 @@ const Navbar = () => {
                             <div className="flex flex-col">
                                 <span className="bg-white rounded-full text-center">{cartCount}</span>
                                 <span>Cart</span>
+                            </div>
+                        </div>
+                        <div
+                            onClick={() => setShowModal(!showModal)}
+                            className="flex items-center gap-1">
+                            <UserIcon className="text-3xl text-white" />
+                            <div className="flex flex-col text-white">
+                                <span>Welcome,</span>
+                                <span>{user?.firstName}</span>
                             </div>
                         </div>
                         {

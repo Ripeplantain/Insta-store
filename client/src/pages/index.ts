@@ -2,14 +2,14 @@ import LoginPage from "./Auth/LoginPage";
 import RegisterPage from "./Auth/RegisterPage";
 
 import HomePage from "./App/HomePage";
-import ItemPage from "./App/ItemPage";
 import CartPage from "./App/CartPage";
+import OrderPage from "./App/OrderPage";
 
 
 export {
     LoginPage,
     RegisterPage,
-    HomePage, 
-    ItemPage,
     CartPage,
+    HomePage,
+    OrderPage
 }

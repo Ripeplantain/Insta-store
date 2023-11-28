@@ -32,7 +32,6 @@ export const productSlice = createSlice({
         builder
             .addCase(fetchAsyncProducts.pending, (state) => {
                 state.loading = true
-                console.log('pending...')
             })
             .addCase(fetchAsyncProducts.fulfilled, (state, action: PayloadAction<Product[]>) => {
                 state.data = action.payload
@@ -45,7 +44,6 @@ export const productSlice = createSlice({
             })
             .addCase(searchAsyncProducts.pending, (state) => {
                 state.loading = true
-                console.log('pending...')
             })
             .addCase(searchAsyncProducts.fulfilled, (state, action: PayloadAction<Product[]>) => {
                 state.data = action.payload
@@ -54,11 +52,9 @@ export const productSlice = createSlice({
             .addCase(searchAsyncProducts.rejected, (state, action) => {
                 state.error = action.error.message as string
                 state.loading = false
-                console.log(action.error.message)
             })
             .addCase(fetchAsyncByCartegory.pending, (state) => {
                 state.loading = true
-                console.log('pending...')
             })
             .addCase(fetchAsyncByCartegory.fulfilled, (state, action: PayloadAction<Product[]>) => {
                 state.data = action.payload
@@ -67,7 +63,6 @@ export const productSlice = createSlice({
             .addCase(fetchAsyncByCartegory.rejected, (state, action) => {
                 state.error = action.error.message as string
                 state.loading = false
-                console.log(action.error.message)
             })
     }
 })

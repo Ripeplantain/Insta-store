@@ -31,7 +31,6 @@ export const cartegorySlice = createSlice({
         builder
             .addCase(fetchAsyncCartegories.pending, (state) => {
             state.loading = true
-            console.log('pending...')
         })
             .addCase(fetchAsyncCartegories.fulfilled, (state, action: PayloadAction<CartegoryState[]>) => {
             state.data = action.payload

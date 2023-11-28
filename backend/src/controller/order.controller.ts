@@ -2,6 +2,7 @@ import { Response, Request } from "express";
 import { orderData } from "../helper/validatre";
 import { createOrder, listOrders, getUserOrders, getOrder,
         updateOrder, deleteOrder} from "../service/order.service";
+import logger from "../helper/logger";
 
 
 
@@ -31,11 +32,13 @@ export const listOrdersController = async (req: Request, res: Response) => {
 }
 
 // @desc   list user's orders
-// @route  GET /api/order
+// @route  GET /api/order/user
 // @access Private
 export const listUserOrdersController = async (req: any, res: Response) => {
     try {
-        const orders = await getUserOrders(req.user._id);
+        const user = req.payload;
+        if(!user) return res.status(401).json({message: "Unauthorized"});
+        const orders = await getUserOrders(user._id);
         return res.status(200).json(orders);
     } catch (error) {
         return res.status(500).json(error);

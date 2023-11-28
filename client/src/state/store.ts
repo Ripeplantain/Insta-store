@@ -3,6 +3,7 @@ import authSlice from "./features/authSlice";
 import productSlice from "./features/productSlice";
 import cartegorySlice from "./features/cartegorySlice";
 import cartSlice from "./features/cartSlice";
+import orderSlice from "./features/orderSlice";
 
 
 export const store = configureStore({
@@ -11,6 +12,7 @@ export const store = configureStore({
         product: productSlice,
         cartegory: cartegorySlice,
         cart: cartSlice,
+        orders: orderSlice
     },
 })
 

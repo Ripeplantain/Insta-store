@@ -4,7 +4,7 @@ import type { RootState } from "../store";
 import type { Product } from "./productSlice";
 
 
-interface Cart {
+export interface Cart {
     items: Product[];
     count: number;
     total: number;
@@ -42,6 +42,9 @@ export const cartSlice = createSlice({
             const item = state.items.find((i) => i._id === product._id);
             if (item && item.number > 1) {
                 item.number--;
+            } else if(state.items.length === 1){
+                state.items = [];
+                localStorage.removeItem("cart");
             } else {
                 state.items = state.items.filter((i) => i._id !== product._id);
             }
