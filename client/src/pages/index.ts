@@ -11,5 +11,5 @@ export {
     RegisterPage,
     CartPage,
     HomePage,
-    OrderPage
+    OrderPage,
 }

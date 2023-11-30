@@ -32,3 +32,9 @@ export const orderData = z.object({
     total: z.number().min(0),
     paymentState: z.string().min(2).max(100),
 })
+
+export const vendorData = z.object({
+    name: z.string().min(2).max(50),
+    // user: z.string().min(2).max(100),
+    deliveryType: z.string().min(2).max(100),
+})

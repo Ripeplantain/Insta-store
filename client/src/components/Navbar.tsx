@@ -7,7 +7,7 @@ import {  selectUser, selectRefreshToken } from "../state/features/authSlice"
 import useAuth from "../hooks/useAuth"
 import { selectCartCount } from "../state/features/cartSlice"
 import { useNavigate } from "react-router-dom"
-import { DropDown } from "."
+import { DropDown, VendorModal } from "."
 
 
 
@@ -15,6 +15,7 @@ const Navbar = () => {
     const [showNav, setShowNav] = useState(false)
     const [isTopPage, setIsTopPage] = useState(true)
     const [showModal, setShowModal] = useState(false)
+    const [showVendorModal, setShowVendorModal] = useState(false)
     const navBackground = isTopPage ? "bg-transparent" : "bg-black"
     const user = useSelector(selectUser)
     const { logout } = useAuth()
@@ -76,6 +77,13 @@ const Navbar = () => {
                             </div>
                         </li>
                         <li>
+                            <button
+                                onClick={() => setShowVendorModal(!showVendorModal)}
+                                className="bg-yellow-600 text-white px-6 py-3 hover:scale-90">
+                                Become a vendor
+                            </button>
+                        </li>
+                        <li>
                             {
                                 user ? (
                                     <button
@@ -99,6 +107,11 @@ const Navbar = () => {
             {/* PopUp Modal */}
             {showModal && (
                 <DropDown />
+            )}
+
+            {/* Vendor Modal */}
+            {showVendorModal && (
+                <VendorModal setShowVendorModal={setShowVendorModal} />
             )}
 
             {/* On Mobile Screen */}
@@ -128,6 +141,13 @@ const Navbar = () => {
                                 <span>{user?.firstName}</span>
                             </div>
                         </div>
+                        <li>
+                            <button
+                                onClick={() => setShowVendorModal(!showVendorModal)}
+                                className="bg-yellow-600 text-white px-6 py-3 hover:scale-90">
+                                Become a vendor
+                            </button>
+                        </li>
                         {
                             user ? (
                                 <button

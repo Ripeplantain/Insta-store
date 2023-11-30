@@ -4,8 +4,6 @@ import { createCategory, listCartegories, deleteCategory } from '../service/cart
 
 
 
-
-
 // @desc   create category
 // @route  POST /api/category
 // @access Private

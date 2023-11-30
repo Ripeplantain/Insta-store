@@ -5,9 +5,10 @@ import Cartegory from "./Cartegory";
 import ProductDetail from "./ProductDetail";
 import AddressModal from "./AddressModal";
 import DropDown from "./DropDown";
+import VendorModal from "./VendorModal";
 
 
 export {
     HeroSection, Navbar, Products, Cartegory, ProductDetail, AddressModal,
-    DropDown
+    DropDown, VendorModal
 }

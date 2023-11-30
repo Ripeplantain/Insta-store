@@ -27,3 +27,7 @@ export const findUserByEmail = async (email: string) => {
 export const findUserById = async (id: string) => {
     return await User.findById(id);
 }
+
+export const updateVendorField = async (id: string, field: string, value: any) => {
+    return await User.findByIdAndUpdate(id, {[field]: value}, {new: true});
+}
