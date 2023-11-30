@@ -1,7 +1,7 @@
 import { Response, Request } from "express";
 import { vendorData } from "../helper/validatre";
 import { createVendor, listVendors, deleteVendor, updateVendor, getVendor } from "../service/vendor.service";
-import { updateVendorField } from "../service/user.service";
+import { updateVendorField, findUserById } from "../service/user.service";
 
 
 
@@ -10,8 +10,18 @@ import { updateVendorField } from "../service/user.service";
 // @access Private
 export const createVendorController = async (req: any, res: Response) => {
     try {
+        const user = await findUserById(req.payload.id);
+        if(user && user.role === 'vendor'){
+            return res.status(400).json({
+                message: 'You are already a vendor',
+            });
+        } else if(user && user.role === 'admin'){
+            return res.status(400).json({
+                message: 'You can not be a vendor',
+            });
+        }
         const vendor: any = vendorData.parse(req.body);
-        vendor.user = req.payload.id;
+        vendor.user = user?._id;
         const newVendor = await createVendor(vendor);
         if(newVendor){
             await updateVendorField(req.payload.id, 'role', 'vendor');
