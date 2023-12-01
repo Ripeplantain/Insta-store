@@ -17,7 +17,6 @@ const useAuth = () => {
     const login = async (data: LoginForm) => {
         try {
             const response = await axiosInstance.post('/login', data)
-            console.log(response.data)
             dispatch(setCredentials(response.data))
             navigate('/')
             showSuccessMessage('Login successful')

@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux"
 import { useEffect, useState } from "react"
-import { fetchAsyncProducts, selectData, selectIsLoading, selectError } from "../state/features/productSlice"
+import { fetchAsyncProducts, selectData, selectIsLoading, selectError, resetProducts } from "../state/features/productSlice"
 import useFlashMessages from "../hooks/useFlashMessages"
 import { RotatingLines } from "react-loader-spinner"
 import { Default } from "../assets/image"
@@ -65,6 +65,7 @@ const Products = () => {
 
     if (error) {
         showErrorMessage(error)
+        dispatch(resetProducts)
     }
 
     const hanldeClick = (product: Product) => {

@@ -3,7 +3,6 @@ import { createUser, findUserByEmail } from '../service/user.service';
 import { userData } from '../helper/validatre';
 import { generateAccessToken, generateRefreshToken, verifyRefreshToken } from '../helper/jwt';
 import client from '../helper/redis';
-import logger from '../helper/logger';
 
 
 // @desc   Register user

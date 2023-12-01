@@ -27,6 +27,10 @@ export const productSlice = createSlice({
         setProducts: (state, action: PayloadAction<Product[]>) => {
             state.data = action.payload
         },
+        resetProducts: (state) => {
+            state.loading = false
+            state.error = null
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -40,7 +44,6 @@ export const productSlice = createSlice({
             .addCase(fetchAsyncProducts.rejected, (state, action) => {
                 state.error = action.error.message as string
                 state.loading = false
-                console.log(action.error.message)
             })
             .addCase(searchAsyncProducts.pending, (state) => {
                 state.loading = true
@@ -93,7 +96,7 @@ export const fetchAsyncByCartegory = createAsyncThunk(
 
 )
 
-export const { setProducts } = productSlice.actions
+export const { setProducts, resetProducts } = productSlice.actions
 
 export const selectProducts = (state: RootState) => state.product
 export const selectIsLoading = (state: RootState) => state.product.loading

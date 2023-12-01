@@ -6,6 +6,7 @@ import { postAsyncOrder, selectError, selectLoading } from "../state/features/or
 import { clearCart } from "../state/features/cartSlice";
 import useFlashMessages from "../hooks/useFlashMessages";
 import { RotatingLines } from "react-loader-spinner";
+import { useEffect } from "react";
 
 
 interface Prop {
@@ -17,7 +18,7 @@ const AddressModal: React.FC<Prop> = ({setShowModal, cart}) => {
 
     const locationRef = useRef<HTMLTextAreaElement>(null)
     const dispatch = useDispatch()
-    const { showErrorMessage, showSuccessMessage } = useFlashMessages()
+    const { showErrorMessage } = useFlashMessages()
     const isLoading = useSelector(selectLoading)
     const error = useSelector(selectError)
 

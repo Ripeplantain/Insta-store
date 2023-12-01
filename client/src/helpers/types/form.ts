@@ -13,3 +13,9 @@ export type RegisterForm = {
     address: string
     phoneNumber: string
 }
+
+export type VendorForm = {
+    name: string
+    description: string
+    deliveryType: string
+}

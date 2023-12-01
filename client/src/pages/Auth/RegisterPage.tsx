@@ -30,12 +30,12 @@ const RegisterPage = () => {
       className="flex justify-center items-center"
       style={styling}>
       <div className="absolute top-0 left-0 w-full h-full bg-primary/80"></div>
-      <div className="z-10 bg-white p-20 text-center rounded-3xl">
+      <div className="z-10 bg-white p-20 text-center rounded-3xl max-h-full min-w-fit">
         <img src={Logo} alt="Logo" className="w-28 mx-auto mb-11" />
         <span className="font-roboto">Please enter your credentials</span>
         <div className="mt-6 mb-4 font-roboto">
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="flex">
+            <div className="flex flex-wrap gap-2">
               <div className="flex flex-col space-y-2">
                 <label
                   className="text-start"
@@ -48,7 +48,7 @@ const RegisterPage = () => {
                 />
                 <p className="text-red-500">{errors.firstName?.message}</p>
               </div>
-              <div className="flex flex-col space-y-2 ml-4">
+              <div className="flex flex-col space-y-2">
                 <label
                   className="text-start"
                   htmlFor="lastName">Last Name</label>
@@ -73,7 +73,7 @@ const RegisterPage = () => {
               />
               <p className="text-red-500">{errors.email?.message}</p>
             </div>
-            <div className="flex">
+            <div className="flex flex-wrap gap-2">
               <div className="flex flex-col space-y-2">
                 <label
                   className="text-start"
@@ -86,7 +86,7 @@ const RegisterPage = () => {
                 />
                 <p className="text-red-500">{errors.address?.message}</p>
               </div>
-              <div className="flex flex-col space-y-2 ml-4">
+              <div className="flex flex-col space-y-2">
                 <label
                   className="text-start"
                   htmlFor="phoneNumber">Phone Number</label>

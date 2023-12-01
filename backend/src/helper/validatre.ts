@@ -35,6 +35,7 @@ export const orderData = z.object({
 
 export const vendorData = z.object({
     name: z.string().min(2).max(50),
+    description: z.string().min(2).max(100),
     // user: z.string().min(2).max(100),
     deliveryType: z.string().min(2).max(100),
 })

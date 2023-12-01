@@ -5,3 +5,11 @@ export interface ErrorState {
         data: string
     }
 }
+
+export type ServerError = {
+    response: {
+        data: {
+            message: string
+        }
+    }
+}
