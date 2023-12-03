@@ -87,7 +87,7 @@ export const fetchAsyncVendors = createAsyncThunk(
     'vendor/fetch',
     async (id: string, { rejectWithValue }) => {
         try {
-            const response = await axiosInstance.get(`/vendor/${id}`)
+            const response = await axiosInstance.get(`/vendor/me/${id}`)
             return response.data
         } catch (err) {
             const error = err as ServerError

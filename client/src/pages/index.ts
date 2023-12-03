@@ -4,6 +4,7 @@ import RegisterPage from "./Auth/RegisterPage";
 import HomePage from "./App/HomePage";
 import CartPage from "./App/CartPage";
 import OrderPage from "./App/OrderPage";
+import Dashboard from "./App/Dashboard";
 
 
 export {
@@ -12,4 +13,5 @@ export {
     CartPage,
     HomePage,
     OrderPage,
+    Dashboard
 }

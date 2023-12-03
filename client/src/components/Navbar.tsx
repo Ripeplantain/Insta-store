@@ -77,11 +77,19 @@ const Navbar = () => {
                             </div>
                         </li>
                         <li>
-                            <button
-                                onClick={() => setShowVendorModal(!showVendorModal)}
-                                className="bg-yellow-600 text-white px-6 py-3 hover:scale-90">
-                                Become a vendor
-                            </button>
+                            {user?.role === "vendor" || user?.role === "admin" || localStorage.getItem("vendors") ? (
+                                <Link
+                                    to="/vendor"
+                                    className="bg-cyan-600 text-white px-6 py-3 hover:cyan-900">
+                                    Vendor Inventory
+                                </Link>
+                            ) : (
+                                <button
+                                    onClick={() => setShowVendorModal(!showVendorModal)}
+                                    className="bg-yellow-600 text-white px-6 py-3 hover:scale-90">
+                                    Become a vendor
+                                </button>
+                            )}
                         </li>
                         <li>
                             {
@@ -142,11 +150,19 @@ const Navbar = () => {
                             </div>
                         </div>
                         <li>
-                            <button
-                                onClick={() => setShowVendorModal(!showVendorModal)}
-                                className="bg-yellow-600 text-white px-6 py-3 hover:scale-90">
-                                Become a vendor
-                            </button>
+                            {user?.role === "vendor" || user?.role === "admin" || localStorage.getItem("vendors") ? (
+                                <Link
+                                    to="/vendor"
+                                    className="bg-cyan-600 text-white px-6 py-3 hover:cyan-900">
+                                    Vendor Inventory
+                                </Link>
+                            ) : (
+                                <button
+                                    onClick={() => setShowVendorModal(!showVendorModal)}
+                                    className="bg-yellow-600 text-white px-6 py-3 hover:scale-90">
+                                    Become a vendor
+                                </button>
+                            )}
                         </li>
                         {
                             user ? (

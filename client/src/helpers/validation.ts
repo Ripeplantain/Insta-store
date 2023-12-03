@@ -29,5 +29,16 @@ const vendorSchema = yup
     })
 
 
+const productSchema = yup
+    .object({
+        name: yup.string().required("Name is required").min(2, "Name must be at least 2 characters"),
+        description: yup.string().required("Description is required").min(2, "Description must be at least 2 characters"),
+        price: yup.string().required("Price is required").min(2, "Price must be at least 2 characters"),
+        quantity: yup.string().required("Quantity is required").min(2, "Quantity must be at least 2 characters"),
+        picture: yup.string().required("Picture is required").min(2, "Picture must be at least 2 characters"),
+        cartegory_id: yup.string().required("Cartegory is required").min(2, "Cartegory must be at least 2 characters"),
+    })
 
-export { loginSchema, registerSchema, vendorSchema }
+
+
+export { loginSchema, registerSchema, vendorSchema, productSchema }

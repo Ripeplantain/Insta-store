@@ -5,7 +5,7 @@ import axios from 'axios'
 
 
 export interface CartegoryState {
-    id: string
+    _id: string
     name: string
     description: string
     createdAt: string

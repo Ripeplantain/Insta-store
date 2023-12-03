@@ -19,3 +19,11 @@ export type VendorForm = {
     description: string
     deliveryType: string
 }
+
+export type ProductType = {
+    name: string
+    description: string
+    price: string
+    quantity: string
+    picture: string
+}

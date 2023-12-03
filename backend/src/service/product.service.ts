@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Product from "../model/product.model";
 
 
@@ -45,4 +46,8 @@ export const getProductByOwner = async (id: string) => {
 
 export const getProductByCartegory = async (id: string) => {
     return await Product.find({ cartegory_id: id }).sort({createdAt: -1});
+}
+
+export const getProductByVendor = async (id: any) => {
+    return await Product.find({ vendor_id: id }).sort({createdAt: -1});
 }

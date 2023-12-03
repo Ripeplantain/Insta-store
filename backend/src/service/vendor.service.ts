@@ -31,3 +31,6 @@ export const getVendor = async (id: string) => {
     return await Vendor.findById(id);
 }
 
+export const getUserVendor = async (id: string) => {
+    return await Vendor.findOne({ user: id });
+}

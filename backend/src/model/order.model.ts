@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 const OrderSchema = new mongoose.Schema({
     client: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
     product: [{type: mongoose.Schema.Types.ObjectId, ref: 'Product'}],
+    venor:{type: mongoose.Schema.Types.ObjectId, ref: 'Vendor'},
     quantity: { type: Number, required: true },
     status: { type: String, enum:['pending', 'delivered'] ,required: true, default: 'pending' },
     location: { type: String, required: true },

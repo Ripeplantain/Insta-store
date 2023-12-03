@@ -1,7 +1,7 @@
 import express from 'express';
 import { verifyAccessToken } from '../middleware/authentication.middleware';
 import { createVendorController, listVendorsController, deleteVendorController, 
-        updateVendorController, getVendorController } from '../controller/vendor.controller';
+        updateVendorController, getVendorController,  getUserVendorController } from '../controller/vendor.controller';
 
 
 
@@ -12,6 +12,7 @@ router.get('/api/vendor', verifyAccessToken, listVendorsController);
 router.delete('/api/vendor/:id', verifyAccessToken, deleteVendorController);
 router.put('/api/vendor/:id', verifyAccessToken, updateVendorController);
 router.get('/api/vendor/:id', verifyAccessToken, getVendorController);
+router.get('/api/vendor/me/:id', verifyAccessToken, getUserVendorController);
 
 
 export default router;

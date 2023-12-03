@@ -4,11 +4,6 @@ import jwt from 'jsonwebtoken';
 require('dotenv').config();
 
 
-interface Error {
-    name: string,
-    message: string
-}
-
 
 export const verifyAccessToken = (req: any, res: Response, next: any) => {
     if(!req.headers['authorization']) {

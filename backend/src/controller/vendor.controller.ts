@@ -1,8 +1,9 @@
 import { Response, Request } from "express";
 import { vendorData } from "../helper/validatre";
-import { createVendor, listVendors, deleteVendor, updateVendor, getVendor } from "../service/vendor.service";
+import { createVendor, listVendors, deleteVendor, updateVendor, getVendor,
+            getUserVendor} from "../service/vendor.service";
 import { updateVendorField, findUserById } from "../service/user.service";
-
+import { getProductByVendor } from "../service/product.service";
 
 
 // @desc   create vendor
@@ -88,3 +89,19 @@ export const getVendorController = async (req: Request, res: Response) => {
     }
 }
 
+// @desc   get vendor
+// @route GET /api/vendor/me/:id
+// @access Private
+export const getUserVendorController = async (req: any, res: Response) => {
+    try {
+        const { id } = req.params;
+        const vendor = await getUserVendor(id);
+        const vendorProducts = await getProductByVendor(vendor?._id);
+        if(!vendor) return res.status(404).json({
+            message: 'Vendor not found',
+        });
+        return res.status(200).json({vendor, vendorProducts});
+    } catch (error) {
+        return res.status(500).json(error);
+    }
+}
