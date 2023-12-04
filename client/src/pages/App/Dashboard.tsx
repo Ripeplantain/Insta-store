@@ -30,7 +30,6 @@ const Dashboard = () => {
         }
     }, [error, showErrorMessage])
 
-    console.log(showComponent)
 
     return (
         <div>

@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { v2 as cloudinary } from "cloudinary";
 import logger from "../helper/logger";
 
 
@@ -9,25 +8,19 @@ import logger from "../helper/logger";
 // @access Private
 export const uploadFileController = async (req: any, res: Response) => {
     try {
-        if (!req.files || Object.keys(req.files).length === 0) {
-            return res.status(400).json({ message: "No files were uploaded." });
+        if(!req.file){
+            return res.status(400).json({
+                message: "Upload file failed",
+            });
         }
-
-        const file = req.files.file as any;
-
-        cloudinary.config({
-            cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-            api_key: process.env.CLOUDINARY_API_KEY,
-            api_secret: process.env.CLOUDINARY_API_SECRET,
-        
-        })
-
-        // Upload image to cloudinary
-        const result = await cloudinary.uploader.upload(file.tempFilePath);
-
-        return res.json({ url: result.secure_url });
-    } catch (err) {
-        logger.error(err);
-        return res.status(500).json({ message: "Server Error" });
+        res.status(200).json({
+            message: "Upload file successfully",
+            data: req.file.path
+        });
+    } catch (error) {
+        logger.error(error);
+        res.status(500).json({
+            message: "Upload file failed",
+        });
     }
 }

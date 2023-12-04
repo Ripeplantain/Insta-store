@@ -1,15 +1,32 @@
 import Dropzone from "react-dropzone"
 import { useState } from "react"
 import { CheckIcon } from "../assets/icons"
+import { axiosInstance } from "../helpers/axios"
 
 
-const DropZone = () => {
+axiosInstance.interceptors.request.use(async req => {
+    req.headers['Content-Type'] = 'multipart/form-data';
+    return req;
+})
+
+interface DropZoneProps {
+    setFilePath: (filePath: string) => void
+}
+
+const DropZone: React.FC<DropZoneProps> = ({setFilePath}) => {
 
     const [fileName, setFileName] = useState<string>('')
 
-    const handleSubmit = (files: File[]) => {
-        console.log(files)
-        setFileName(files[0].name)
+    const handleSubmit = async (files: File[]) => {
+        try {
+            const form = new FormData()
+            form.append('file', files[0])
+            const res = await axiosInstance.post('file', form);
+            setFilePath(res.data.data)
+            setFileName(res.data.message)
+        } catch (error){
+            console.log(error)
+        }
     }
 
     return (
@@ -29,7 +46,6 @@ const DropZone = () => {
                 <div className="flex justify-center items-center gap-2 mt-4 text-emerald-800">
                     <CheckIcon />
                     <span>{fileName}</span>
-                    <span>has been uploaded successfully</span>
                 </div>
             )}
         </div>

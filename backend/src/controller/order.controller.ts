@@ -2,7 +2,6 @@ import { Response, Request } from "express";
 import { orderData } from "../helper/validatre";
 import { createOrder, listOrders, getUserOrders, getOrder,
         updateOrder, deleteOrder} from "../service/order.service";
-import logger from "../helper/logger";
 
 
 
@@ -37,7 +36,6 @@ export const listOrdersController = async (req: Request, res: Response) => {
 export const listUserOrdersController = async (req: any, res: Response) => {
     try {
         const user = req.payload;
-        logger.info(user);
         if(!user) return res.status(401).json({message: "Unauthorized"});
         const orders = await getUserOrders(user._id);
         return res.status(200).json(orders);

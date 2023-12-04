@@ -26,4 +26,5 @@ export type ProductType = {
     price: string
     quantity: string
     picture: string
+    cartegory_id: string
 }

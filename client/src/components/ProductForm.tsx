@@ -5,18 +5,20 @@ import { ProductType } from "../helpers/types/form"
 import { useSelector } from "react-redux"
 import { selectData } from "../state/features/cartegorySlice"
 import DropZone from "./DropZone"
+import { useState } from "react"
 
 
 
 const ProductForm = () => {
 
     const cartegories = useSelector(selectData)
+    const [filePath, setFilePath] = useState<string>('')
 
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(productSchema)
     })
 
-    const onSubmit: SubmitHandler<ProductType> = async (data) => console.log(data)
+    const onSubmit: SubmitHandler<ProductType> = (data) => console.log(data)
 
 
     return (
@@ -24,7 +26,7 @@ const ProductForm = () => {
             <h1 className="font-roboto text-3xl uppercase tracking-wider">Product Form</h1>
 
             {/* Upload Image */}
-            <DropZone />
+            <DropZone setFilePath={setFilePath} />
 
             <div className="my-8">
                 <form
