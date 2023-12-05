@@ -1,82 +1,89 @@
-import { SubmitHandler, useForm } from "react-hook-form"
-import { yupResolver } from "@hookform/resolvers/yup"
-import { productSchema } from "../helpers/validation"
-import { ProductType } from "../helpers/types/form"
+import React from "react"
+import { FormEvent, useState } from "react"
 import { useSelector } from "react-redux"
 import { selectData } from "../state/features/cartegorySlice"
-import DropZone from "./DropZone"
-import { useState } from "react"
-
+import { DropZone } from "./DropZone"
+import { useCreateProductMutation } from "../services/product"
 
 
 const ProductForm = () => {
 
-    const cartegories = useSelector(selectData)
-    const [filePath, setFilePath] = useState<string>('')
-
-    const { register, handleSubmit, formState: { errors } } = useForm({
-        resolver: yupResolver(productSchema)
+    const [ fromData, setFormData ] = useState({
+        name: '',
+        description: '',
+        price: '',
+        quantity: '',
+        picture: '',
+        cartegory_id: ''
     })
+    const cartegories = useSelector(selectData)
+    const [createProduct, { isLoading, isError}] = useCreateProductMutation()
 
-    const onSubmit: SubmitHandler<ProductType> = (data) => console.log(data)
+    const handleSubmit = async (e: FormEvent) => {
+        e.preventDefault()
+        console.log(fromData)
+        const response = await createProduct(fromData)
+        console.log(response)
+        // dispatch(postAsyncProduct(fromData))
+    }
 
+    if (isLoading) return <div>Loading...</div>
+
+    if (isError) return <div>Error...</div>
 
     return (
         <div>
             <h1 className="font-roboto text-3xl uppercase tracking-wider">Product Form</h1>
-
-            {/* Upload Image */}
-            <DropZone setFilePath={setFilePath} />
-
-            <div className="my-8">
-                <form
-                    className="flex flex-col gap-4"
-                    onSubmit={handleSubmit(onSubmit)}>
-                    <div className="flex flex-col space-y-2">
-                        <label htmlFor="name">Name</label>
-                        <input 
-                            type="text"
+            <DropZone setFilePath={(filePath) => setFormData({...fromData, picture: filePath})}/>
+            <form onSubmit={handleSubmit}>
+                <div className="flex flex-col gap-4 my-8">
+                    <div className="flex flex-col gap-2"> 
+                        <label htmlFor="name">Product Name</label>
+                        <input
+                            className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-primary/50"
                             id="name"
-                            {...register("name")}
-                            className="border border-gray-400 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-primary/50"
-                            />
-                        <p>{errors.name?.message}</p>
+                            name="name"
+                            value={fromData.name}
+                            onChange={(e) => setFormData({...fromData, name: e.target.value})}
+                            type="text" />
                     </div>
-                    <div className="flex flex-col space-y-2">
-                        <label htmlFor="description">Description</label>
+                    <div className="flex flex-col gap-2">
+                        <label htmlFor="description">Product Description</label>
                         <textarea
-                            {...register("description")}
-                            className="border border-gray-400 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-primary/50"
-                            name="description" id="description"></textarea>
-                        {errors.description?.message}
+                            className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                            id="description"
+                            name="description"
+                            value={fromData.description}
+                            onChange={(e) => setFormData({...fromData, description: e.target.value})}
+                            rows={5} />
                     </div>
-                    <div className="flex flex-col space-y-2">
-                        <label htmlFor="price">Price</label>
+                    <div className="flex flex-col gap-2">
+                        <label htmlFor="price">Product Price</label>
                         <input
-                            type="text"
+                            className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-primary/50"
                             id="price"
-                            {...register("price")}
-                            className="border border-gray-400 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-primary/50"
-                            />
-                        {errors.price?.message}
+                            name="price"
+                            value={fromData.price}
+                            onChange={(e) => setFormData({...fromData, price: e.target.value})}
+                            type="number" />
                     </div>
-                    <div className="flex flex-col space-y-2">
-                        <label htmlFor="quantity">Quantity</label>
+                    <div className="flex flex-col gap-2">
+                        <label htmlFor="quantity">Product Quantity</label>
                         <input
-                            type="text"
+                            className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-primary/50"
                             id="quantity"
-                            {...register("quantity")}
-                            className="border border-gray-400 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-primary/50"
-                            />
-                        {errors.quantity?.message}
+                            name="quantity"
+                            value={fromData.quantity}
+                            onChange={(e) => setFormData({...fromData, quantity: e.target.value})}
+                            type="number" />
                     </div>
-
-                    <div className="flex flex-col space-y-2">
-                        <label htmlFor="cartegory_id">Cartegory</label>
+                    <div className="flex flex-col gap-2">
+                        <label htmlFor="cartegory">Cartegory</label>
                         <select
-                            {...register("cartegory_id")}
-                            className="border border-gray-400 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                            onChange={(e) => setFormData({...fromData, cartegory_id: e.target.value})}
+                            className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-primary/50"
                             name="cartegory_id" id="cartegory_id">
+                            <option value="">Select Cartegory</option>
                             {cartegories.map(cartegory => (
                                 <option key={cartegory._id} value={cartegory._id}>{cartegory.name}</option>
                             ))}
@@ -85,12 +92,16 @@ const ProductForm = () => {
 
                     <button
                         className="bg-black hover:bg-gray-500 text-white rounded-md p-3 mt-2 
-                            focus:outline-none focus:ring-2 focus:ring-primary/50"
-                        type="submit">Submit</button>
-                </form>
-            </div>
+                                    focus:outline-none focus:ring-2 focus:ring-primary/50"
+                        type="submit">
+                        Add Product
+                    </button>
+                </div>
+            </form>
         </div>
     )
 }
 
-export default ProductForm
+// export default ProductForm
+const MemoizedProductForm = React.memo(ProductForm)
+export { MemoizedProductForm as ProductForm }

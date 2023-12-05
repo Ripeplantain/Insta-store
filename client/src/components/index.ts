@@ -8,7 +8,7 @@ import DropDown from "./DropDown";
 import VendorModal from "./VendorModal";
 import { PrivateRoute } from "./ProtectedRoute";
 import OrderTable from "./OrderTable";
-import ProductForm from "./ProductForm";
+import { ProductForm } from "./ProductForm";
 import ProductTable from "./ProductTable";
 
 

@@ -5,6 +5,7 @@ import cartegorySlice from "./features/cartegorySlice";
 import cartSlice from "./features/cartSlice";
 import orderSlice from "./features/orderSlice";
 import vendorSlice from "./features/vendorSlice";
+import { productApi } from "../services/product";
 
 
 export const store = configureStore({
@@ -15,7 +16,12 @@ export const store = configureStore({
         cart: cartSlice,
         orders: orderSlice,
         vendor: vendorSlice,
+
+        [productApi.reducerPath]: productApi.reducer
     },
+
+    middleware: (getDefaultMiddleware) => 
+        getDefaultMiddleware().concat(productApi.middleware)
 })
 
 export type RootState = ReturnType<typeof store.getState>
