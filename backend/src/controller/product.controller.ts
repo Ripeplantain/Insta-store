@@ -2,17 +2,20 @@ import { Response, Request } from "express";
 import { productData } from "../helper/validatre";
 import { createProduct, getProduct, getProductByOwner, updateProduct, 
         deleteProduct, listProducts, searchProduct, getProductByCartegory } from "../service/product.service";
-
+import logger from "../helper/logger";
 
 
 // @desc   create product
 // @route  POST /api/product
 // @access Private
-export const createProductController = async (req: Request, res: Response) => {
+export const createProductController = async (req: any, res: Response) => {
     try {
-        const product: any = productData.parse(req.body);
-        const newProduct = await createProduct(product);
-        return res.status(201).json(newProduct);
+        logger.info(req.body)
+        res.status(200).json(req.body)
+        // const product: any = productData.parse(req.body);
+        // product.owner = req.payload.id;
+        // const newProduct = await createProduct(product);
+        // return res.status(201).json(newProduct);
     } catch (error) {
         return res.status(500).json(error);
     }
@@ -23,7 +26,7 @@ export const createProductController = async (req: Request, res: Response) => {
 // @access Private
 export const listOwnerProductsController = async (req: any, res: Response) => {
     try {
-        const products = await getProductByOwner(req.user._id);
+        const products = await getProductByOwner(req.payload.id);
         return res.status(200).json(products);
     } catch (error) {
         return res.status(500).json(error);

@@ -8,8 +8,7 @@ const baseUrl = 'http://localhost:3000/api';
 export const axiosInstance = axios.create({
     baseURL: baseUrl,
     headers: {
-    'Content-Type': 'application/json',
-    // 'Authorization': `Bearer ${localStorage.getItem('accessToken') || 'null'}`
+    'Content-Type': 'application/json'
     },
 });
 

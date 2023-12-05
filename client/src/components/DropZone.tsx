@@ -1,3 +1,4 @@
+import React from "react"
 import Dropzone from "react-dropzone"
 import { useState } from "react"
 import { CheckIcon } from "../assets/icons"
@@ -52,4 +53,6 @@ const DropZone: React.FC<DropZoneProps> = ({setFilePath}) => {
     )
 }
 
-export default DropZone
+// export default React.memo(DropZone)
+const MemoizedDropZone = React.memo(DropZone)
+export { MemoizedDropZone as DropZone }

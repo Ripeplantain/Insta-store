@@ -1,6 +1,7 @@
 import multer from 'multer';
 import path from 'path';
 import dayjs from 'dayjs';
+import {v4 as uuidv4 } from 'uuid'
 
 const currentDate = dayjs(Date.now()).format('YYYY-MM-DD');
 
@@ -10,7 +11,7 @@ const storage = multer.diskStorage({
     },
     filename: (req, file, cb) => {
         const ext = path.extname(file.originalname);
-        cb(null, currentDate + '-' + file.originalname);
+        cb(null, currentDate + '-' + uuidv4().slice(1,12) + ext);
     }
 });
 
