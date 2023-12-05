@@ -7,12 +7,9 @@ export default {
     theme: {
     extend: {
       fontFamily: {
-        'playfair': ['Playfair Display', 'serif'],
-        'comingsoon': ['Coming Soon', 'cursive'],
-        'roboto': ['Roboto', 'sans-serif'],
-      },
-      colors: {
-        'primary': '#f5f6fa'
+        playfair: ["Playfair Display", "serif"],
+        roboto: ["Roboto", "sans-serif"],
+        comingSoon: ["Coming Soon", "cursive"],
       }
     },
   },
