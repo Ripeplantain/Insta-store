@@ -1,6 +1,8 @@
 import { GuestLayout } from "./Layouts"
 import { Login, Register } from "./components"
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
+import { ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 
 const App = () => {
@@ -16,6 +18,7 @@ const App = () => {
             </GuestLayout>} />
         </Routes>
       </Router>
+      <ToastContainer />
     </>
   )
 }

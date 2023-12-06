@@ -4,17 +4,34 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import { registerSchema } from "../../helper/validation"
 import { RegisterInput } from "../../helper/types/inputTypes"
 import { Link } from "react-router-dom"
+import { useRegisterUserMutation } from "../../api/auth"
+import { Loader } from ".."
+import useNotify from "../../hooks/useNotify"
+import { ErrorState } from "../../helper/types/errorType"
+import { useEffect } from "react"
 
 
 const Register = () => {
 
+    const [registerUser, { isLoading, isError, error, isSuccess }] = useRegisterUserMutation()
+    const { SuccessMessage, ErrorMessage } = useNotify()
     const {register, handleSubmit, formState: { errors }} = useForm<RegisterInput>({
         resolver: yupResolver(registerSchema)
     })
-    const onSubmit: SubmitHandler<RegisterInput> = (data) => console.log(data)
+    const onSubmit: SubmitHandler<RegisterInput> = (data) => registerUser(data)
+
+    useEffect(() => {
+        if (isError) {
+            const errorMessage = error as ErrorState
+            ErrorMessage(errorMessage.error)
+        }
+        if (isSuccess) SuccessMessage("User has been registered successfully")
+    }, [isError, isSuccess, ErrorMessage, SuccessMessage, error])
+    if (isLoading) return <Loader />
+
 
     return (
-        <div className="z-40 bg-white p-10 flex flex-col items-center">
+        <div className="z-40 bg-white p-10 flex flex-col items-center max-h-screen">
             <img
                 className="w-28 mx-auto mb-11"
                 src={Logo} alt="logo" />
@@ -22,7 +39,7 @@ const Register = () => {
             <div className="mt-6 mb-4 font-roboto">
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="flex flex-wrap gap-2">
-                        <div className="flex flex-col space-y-2">
+                        <div className="flex flex-col space-y-2 w-full md:w-fit">
                             <label htmlFor="firstName">First Name</label>
                             <input
                                 type="text"
@@ -31,7 +48,7 @@ const Register = () => {
                                 {...register("firstName")} />
                             {errors.firstName && <span className="text-red-500">{errors.firstName.message}</span>}
                         </div>
-                        <div className="flex flex-col space-y-2">
+                        <div className="flex flex-col space-y-2 w-full md:w-fit">
                             <label htmlFor="lastName">Last Name</label>
                             <input
                                 type="text"
@@ -69,7 +86,7 @@ const Register = () => {
                         {errors.phoneNumber && <span className="text-red-500">{errors.phoneNumber.message}</span>}
                     </div>
                     <div className="flex flex-wrap gap-2">
-                        <div className="flex flex-col space-y-2 mt-4">
+                        <div className="flex flex-col space-y-2 mt-4 w-full md:w-fit">
                             <label htmlFor="password">Password</label>
                             <input
                                 type="password"
@@ -78,7 +95,7 @@ const Register = () => {
                                 {...register("password")} />
                             {errors.password && <span className="text-red-500">{errors.password.message}</span>}
                         </div>
-                        <div className="flex flex-col space-y-2 mt-4">
+                        <div className="flex flex-col space-y-2 mt-4 w-full md:w-fit">
                             <label htmlFor="confirmPassword">Confirm Password</label>
                             <input
                                 type="password"
