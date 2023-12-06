@@ -9,11 +9,16 @@ import { Loader } from ".."
 import useNotify from "../../hooks/useNotify"
 import { ErrorState } from "../../helper/types/errorType"
 import { useEffect } from "react"
+import { useNavigate } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import { setAuth } from "../../state/feature/authSlice"
 
 
 const Register = () => {
 
-    const [registerUser, { isLoading, isError, error, isSuccess }] = useRegisterUserMutation()
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const [registerUser, { isLoading, isError, error, isSuccess, data }] = useRegisterUserMutation()
     const { SuccessMessage, ErrorMessage } = useNotify()
     const {register, handleSubmit, formState: { errors }} = useForm<RegisterInput>({
         resolver: yupResolver(registerSchema)
@@ -25,8 +30,12 @@ const Register = () => {
             const errorMessage = error as ErrorState
             ErrorMessage(errorMessage.error)
         }
-        if (isSuccess) SuccessMessage("User has been registered successfully")
-    }, [isError, isSuccess, ErrorMessage, SuccessMessage, error])
+        if (isSuccess) {
+            SuccessMessage("User has been registered successfully")
+            dispatch(setAuth(data))
+            navigate("/")
+        }
+    }, [isError, isSuccess, ErrorMessage, SuccessMessage, error, navigate, data, dispatch])
     if (isLoading) return <Loader />
 
 

@@ -18,17 +18,24 @@ export const authSlice = createSlice({
         setAuth: (state, action: PayloadAction<AuthState>) => {
             state.accessToken = action.payload.accessToken;
             state.refreshToken = action.payload.refreshToken;
-            state.isAuthenticated = action.payload.isAuthenticated;
+            state.isAuthenticated = true;
             state.user = action.payload.user;
+            localStorage.setItem('accessToken', action.payload.accessToken || '');
+            localStorage.setItem('refreshToken', action.payload.refreshToken || '');
+            localStorage.setItem('user', JSON.stringify(action.payload.user)) 
         },
         setUser: (state, action: PayloadAction<UserState>) => {
             state.user = action.payload;
+            localStorage.setItem('user', JSON.stringify(action.payload))
         },
         logout: (state) => {
             state.accessToken = null;
             state.refreshToken = null;
             state.isAuthenticated = false;
             state.user = null;
+            localStorage.removeItem('accessToken');
+            localStorage.removeItem('refreshToken');
+            localStorage.removeItem('user');
         }
     }
 })

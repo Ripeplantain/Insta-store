@@ -4,14 +4,42 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import { LoginInput } from "../../helper/types/inputTypes"
 import { loginSchema } from "../../helper/validation"
 import { Link } from "react-router-dom"
+import { useEffect } from "react"
+import { useDispatch } from "react-redux"
+import { setAuth } from "../../state/feature/authSlice"
+import { useNavigate } from "react-router-dom"
+import { ErrorState } from "../../helper/types/errorType"
+import { useLoginMutation } from "../../api/auth"
+import useNotify from "../../hooks/useNotify"
+import { Loader } from ".."
+
 
 
 const Login = () => {
 
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const [loginUser, { isLoading, isError, error, isSuccess, data }] = useLoginMutation()
+  const { SuccessMessage, ErrorMessage } = useNotify()
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(loginSchema)
   })
-  const onSubmit: SubmitHandler<LoginInput> = data => console.log(data)
+  const onSubmit: SubmitHandler<LoginInput> = data => loginUser(data)
+
+  useEffect(() => {
+    if (isError) {
+      const errorMessage = error as ErrorState
+      ErrorMessage(errorMessage.error)
+    }
+
+    if (isSuccess) {
+      SuccessMessage("User has been logged in successfully")
+      dispatch(setAuth(data))
+      navigate("/")
+    }
+  }, [isError, isSuccess, ErrorMessage, SuccessMessage, error, navigate, data, dispatch])
+
+  if (isLoading) return <Loader />
 
   return (
     <div 
