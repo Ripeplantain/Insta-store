@@ -1,42 +1,99 @@
-// import { Logo } from "../../assets"
 import { Link } from "react-router-dom"
 import { ShoppingCart, UserIcon, NavIcon, CloseIcon } from "../../assets/icons"
 import useMediaQuery from "../../hooks/useMediaQuery"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
+import { useSelector, useDispatch } from "react-redux"
+import { useNavigate } from "react-router-dom"
+import { selectIsAuthenticated, selectUser, selectRefreshToken } from "../../state/feature/authSlice"
+import { useLogoutUserMutation } from "../../api/auth"
+import useNotify from "../../hooks/useNotify"
+import { ServerError } from "../../helper/types/errorType"
+import { logout } from "../../state/feature/authSlice"
 
 
 const Navbar = () => {
 
     const isAboveSmallScreens = useMediaQuery('(min-width:768px)')
     const [isMenuToggled, setIsMenuToggled] = useState<boolean>(false)
+    const [isTopofPage, setIsTopofPage] = useState<boolean>(true)
+    const navBackground = isTopofPage ? 'bg-transparent' : 'bg-black'
+    const isAuthenticated = useSelector(selectIsAuthenticated)
+    const user = useSelector(selectUser)
+    const refreshToken = useSelector(selectRefreshToken)
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const [logoutUser, {isError, error, isSuccess}] = useLogoutUserMutation()
+    const { ErrorMessage, SuccessMessage } = useNotify()
+
+    useEffect(() => {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 0) {
+                setIsTopofPage(false)
+            } else {
+                setIsTopofPage(true)
+            }
+        })
+    }, [])
+
+    useEffect(() => {
+        if (isError) {
+            const errorMessage = error as ServerError
+            console.log(errorMessage)
+            ErrorMessage(errorMessage.data.message)
+        }
+
+        if (isSuccess) {
+            SuccessMessage("User has been logged out successfully")
+            dispatch(logout())
+            navigate("/login")
+        }
+    }, [isError, isSuccess, error, dispatch, navigate, ErrorMessage, SuccessMessage])
 
     return (
-        <nav className="z-40 fixed w-full top-0 py-6">
+        <nav className={`${navBackground} z-40 fixed w-full top-0 py-6`}>
             <div>
                 <div className="flex justify-around items-center">
                     <div className="flex items-center">
                         {/* <img src={Logo} alt="logo" className="w-20" /> */}
                         <Link
                             to="/"
-                            className="text-[40px] font-comingSoon font-bold ml-2">IS</Link>
+                            className="text-white text-[40px] font-comingSoon font-bold ml-2">IS</Link>
                     </div>
                     
                     {/* Desktop Nav */}
                     {isAboveSmallScreens ? (
-                    <div className="flex items-center gap-8">
-                        <div className="flex items-center gap-1 cursor-pointer hover:scale-90 delay-100 transition-all ease-in-out">
-                            <UserIcon className="text-2xl" />
-                            <span className="text-sm font-roboto">Login</span>
-                        </div>
+                    <div className="flex items-center gap-8 text-white">
                         <div className="flex items-center gap-1 cursor-pointer hover:scale-90 delay-100 transition-all ease-in-out">
                             <ShoppingCart className="text-3xl" />
                             <span className="text-sm font-roboto">0</span>
                         </div>
+                        {isAuthenticated ? (
+                            <div className="flex items-center gap-8">
+                                <Link
+                                    to="/dashboard"
+                                    className="flex items-center gap-1 cursor-pointer hover:scale-90 delay-100 transition-all ease-in-out">
+                                    <UserIcon className="text-2xl" />
+                                    <span className="text-sm font-roboto">Hello {user?.firstName}</span>
+                                </Link>
+                                <button
+                                    onClick={() => logoutUser(refreshToken)}
+                                    className="bg-gray-800 hover:bg-red-500 delay-100 ease-in-out p-4 rounded-2xl">
+                                    Logout
+                                </button>
+                            </div>
+                        ) : (
+                            <Link
+                                to="/login"
+                                className="flex items-center gap-1 cursor-pointer hover:scale-90 delay-100 transition-all ease-in-out">
+                                <UserIcon className="text-2xl" />
+                                <span className="text-sm font-roboto">Login</span>
+                            </Link>
+                        )}
                     </div> 
                     ) : (
                         <button onClick={() => setIsMenuToggled(!isMenuToggled)}>
-                            <NavIcon className="text-4xl" />
+                            <NavIcon className="text-4xl text-white" />
                         </button>
                     )}
 
@@ -57,13 +114,31 @@ const Navbar = () => {
                             {/* Menu Items */}
                             <div className="flex flex-col items-center gap-8">
                                 <div className="flex items-center gap-1 cursor-pointer hover:scale-90 delay-100 transition-all ease-in-out">
-                                    <UserIcon className="text-2xl" />
-                                    <span className="text-sm font-roboto">Login</span>
-                                </div>
-                                <div className="flex items-center gap-1 cursor-pointer hover:scale-90 delay-100 transition-all ease-in-out">
                                     <ShoppingCart className="text-3xl" />
                                     <span className="text-sm font-roboto">0</span>
                                 </div>
+                                {isAuthenticated ? (
+                                    <div className="flex flex-col items-center gap-8">
+                                        <Link
+                                            to="/dashboard"
+                                            className="flex items-center gap-1 cursor-pointer hover:scale-90 delay-100 transition-all ease-in-out">
+                                            <UserIcon className="text-2xl" />
+                                            <span className="text-sm font-roboto">Hello {user?.firstName}</span>
+                                        </Link>
+                                        <button
+                                            onClick={() => logoutUser(refreshToken)}
+                                            className="bg-gray-800 text-white hover:bg-red-500 delay-100 ease-in-out p-4 rounded-2xl">
+                                            Logout
+                                        </button>
+                                    </div>
+                                ) : (
+                                    <Link
+                                        to="/login"
+                                        className="flex items-center gap-1 cursor-pointer hover:scale-90 delay-100 transition-all ease-in-out">
+                                        <UserIcon className="text-2xl" />
+                                        <span className="text-sm font-roboto">Login</span>
+                                    </Link>
+                                )}
                             </div>
                         </motion.div>
                     )}

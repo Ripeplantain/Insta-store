@@ -5,7 +5,9 @@ import Loader from "./shared/Loader";
 
 import Navbar from "./navigation/Navbar";
 
+import Cartegories from "./widget/Cartegories";
+
 
 export {
-    Login, Register, Loader, Navbar
+    Login, Register, Loader, Navbar, Cartegories
 }

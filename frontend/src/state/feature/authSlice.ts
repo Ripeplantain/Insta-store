@@ -8,7 +8,7 @@ const initialState: AuthState = {
     accessToken: localStorage.getItem('accessToken') || null,
     refreshToken: localStorage.getItem('refreshToken') || null,
     isAuthenticated: localStorage.getItem('accessToken') ? true : false,
-    user: null
+    user: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') || '') : null
 }
 
 export const authSlice = createSlice({
@@ -44,4 +44,6 @@ export const authSlice = createSlice({
 export const { setAuth, setUser, logout } = authSlice.actions;
 export const selectAuth = (state: RootState) => state.auth;
 export const selectUser = (state: RootState) => state.auth.user;
+export const selectIsAuthenticated = (state: RootState) => state.auth.isAuthenticated;
+export const selectRefreshToken = (state: RootState) => state.auth.refreshToken;
 export default authSlice.reducer;

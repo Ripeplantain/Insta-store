@@ -18,3 +18,11 @@ export type AuthState = {
     isAuthenticated: boolean;
     user: UserState | null;
 }
+
+export type CartegoryState = {
+    _id: string;
+    name: string;
+    description: string;
+    createdAt: string;
+    updatedAt: string;
+}
