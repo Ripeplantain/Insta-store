@@ -10,6 +10,9 @@ export default {
         playfair: ["Playfair Display", "serif"],
         roboto: ["Roboto", "sans-serif"],
         comingSoon: ["Coming Soon", "cursive"],
+      },
+      colors: {
+        primary: "#ffffff",
       }
     },
   },

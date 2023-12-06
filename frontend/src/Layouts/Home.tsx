@@ -1,8 +1,9 @@
+import { Navbar } from "../components"
 
 const Home = () => {
     return (
-        <div>
-            Home Page
+        <div className="bg-primary h-screen">
+            <Navbar />
         </div>
     )
 }
