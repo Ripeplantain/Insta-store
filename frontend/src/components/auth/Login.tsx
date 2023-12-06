@@ -3,6 +3,7 @@ import { useForm, SubmitHandler } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { LoginInput } from "../../helper/types/inputTypes"
 import { loginSchema } from "../../helper/validation"
+import { Link } from "react-router-dom"
 
 
 const Login = () => {
@@ -49,9 +50,14 @@ const Login = () => {
           </form>
         </div>
 
-        <div className="flex flex-col items-center">
-          <span className="font-roboto">Don't have an account?</span>
-          <a href="/register" className="text-blue-500 hover:underline">Register</a>
+        <div className="flex flex-col items-center mt-4">
+          <span className="font-roboto text-gray-700">Don't have an account?</span>
+          <Link to="/register" className="text-blue-500 hover:underline">Register</Link>
+        </div>
+
+        <div className="flex flex-col items-center mt-6">
+          <span className="font-roboto text-gray-700">Forgot your password?</span>
+          <Link to="/forgot-password" className="text-red-500 hover:underline">Reset Password</Link>
         </div>
       </div>
     </div>

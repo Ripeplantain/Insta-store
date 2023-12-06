@@ -1,5 +1,5 @@
 import { GuestLayout } from "./Layouts"
-import { Login } from "./components"
+import { Login, Register } from "./components"
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 
 
@@ -10,6 +10,9 @@ const App = () => {
         <Routes>
             <Route path="/login" element={<GuestLayout>
               {<Login />}
+            </GuestLayout>} />
+            <Route path="/register" element={<GuestLayout>
+              {<Register />} 
             </GuestLayout>} />
         </Routes>
       </Router>
