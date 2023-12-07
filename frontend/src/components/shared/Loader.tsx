@@ -1,17 +1,15 @@
-import { Hourglass } from "react-loader-spinner"
+import { RotatingLines } from "react-loader-spinner"
 
 
 const Loader = () => {
     return (
         <div className="flex justify-center items-center h-screen">
-            <Hourglass
+            <RotatingLines
+                strokeColor="grey"
+                strokeWidth="5"
+                animationDuration="0.75"
+                width="96"
                 visible={true}
-                height="80"
-                width="80"
-                ariaLabel="hourglass-loading"
-                wrapperStyle={{}}
-                wrapperClass=""
-                colors={['#306cce', '#72a1ed']}
             />
         </div>
     )

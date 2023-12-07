@@ -1,4 +1,4 @@
-import { Navbar, Cartegories } from "../components"
+import { Navbar, Cartegories, Products } from "../components"
 import { HeroSection } from "../assets"
 
 const Home = () => {
@@ -32,6 +32,7 @@ const Home = () => {
                 </div>
             </section>
             <Cartegories />
+            <Products />
         </div>
     )
 }

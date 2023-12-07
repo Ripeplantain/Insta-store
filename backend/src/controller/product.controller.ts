@@ -10,12 +10,10 @@ import logger from "../helper/logger";
 // @access Private
 export const createProductController = async (req: any, res: Response) => {
     try {
-        logger.info(req.body)
-        res.status(200).json(req.body)
-        // const product: any = productData.parse(req.body);
-        // product.owner = req.payload.id;
-        // const newProduct = await createProduct(product);
-        // return res.status(201).json(newProduct);
+        const product: any = productData.parse(req.body);
+        product.owner = req.payload.id;
+        const newProduct = await createProduct(product);
+        return res.status(201).json(newProduct);
     } catch (error) {
         return res.status(500).json(error);
     }

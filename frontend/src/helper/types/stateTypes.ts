@@ -26,3 +26,20 @@ export type CartegoryState = {
     createdAt: string;
     updatedAt: string;
 }
+
+export type ProductState = {
+    _id: string;
+    name: string;
+    description: string;
+    cartegory_id: string;
+    vendor_id: {
+        _id: string;
+        name: string;
+    };
+    price: number;
+    quantity: number;
+    owner: string;
+    picture: string;
+    createdAt: string;
+    updatedAt: string;
+}

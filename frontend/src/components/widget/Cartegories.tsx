@@ -32,13 +32,13 @@ const Cartegories = () => {
 
     return (
         <section
-            className='flex flex-col justify-center items-center my-16'>
-            <h1 className='text-4xl font-roboto text-gray-700'>Cartegories</h1>
+            className='flex flex-col justify-center items-center my-20'>
+            <h1 className='text-4xl font-roboto text-gray-800'>Cartegories</h1>
             <div className='flex flex-wrap justify-center items-center my-8'>
                 {data?.map((cartegory: CartegoryState) => (
                     <div
                         key={cartegory._id}
-                        className='flex flex-col justify-center items-center m-4 bg-slate-200 hover:bg-black cursor-pointer hover:text-white delay-100 ease p-4'>
+                        className='flex flex-col justify-center items-center m-4 border-2 border-gray-800 rounded-3xl hover:bg-black cursor-pointer hover:text-white delay-100 ease-in-out p-4'>
                         <h1 className='text-lg font-roboto'>{cartegory.name}</h1>
                     </div>
                 ))}

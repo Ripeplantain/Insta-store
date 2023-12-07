@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import Product from "../model/product.model";
+import { populate } from "dotenv";
 
 
 interface Product {
@@ -21,7 +22,10 @@ export const createProduct = async (product: Product) => {
 }
 
 export const listProducts = async () => {
-    return await Product.find({quantity: {$gt: 0}}).sort({createdAt: -1});
+    return await Product.find({quantity: {$gt: 0}})
+        .sort({updatedAt: -1})
+        .limit(10)
+        .populate('vendor_id', 'name');
 }
 
 export const deleteProduct = async (id: string) => {

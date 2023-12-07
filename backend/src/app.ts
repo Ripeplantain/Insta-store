@@ -5,7 +5,7 @@ import logger from './helper/logger';
 import router from './routes'
 import client from './helper/redis';
 import cors from 'cors';
-import { generateCartegories, generateProducts } from './helper/faker';
+import { generateCartegories, generateProducts, generateVendor } from './helper/faker';
 
 
 const app = express();
@@ -20,6 +20,7 @@ const port = config.get('port') as number;
 
 // generateCartegories();
 // generateProducts();
+// generateVendor();
 
 app.listen(port, () => {
     logger.info('server started');

@@ -76,8 +76,12 @@ export const logoutUser = async (req: Request, res: any) => {
         const user: any = await findUserByEmail(payload.email);
         if(!user) return res.status(400).send('User does not exist');
         client.del(user._id.toString());
-        return res.status(200).send('Logout successful');
+        return res.status(200).json({
+            'message': 'Logout successful'
+        });
     } catch (error: any) {
-        return res.status(500).send(error.message);
+        return res.status(500).json({
+            'message': error.message
+        });
     }
 }
