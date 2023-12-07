@@ -4,7 +4,8 @@ import useNotify from "../../hooks/useNotify"
 import { useEffect } from "react"
 import { ServerError } from "../../helper/types/errorType"
 import { Loader } from ".."
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+import { selectSelectedCartegory } from "../../state/feature/cartegorySlice"
 import { setProduct } from "../../state/feature/productSlice"
 import { ProductState } from "../../helper/types/stateTypes"
 import { ProductCard } from ".."
@@ -15,6 +16,9 @@ const Products = () => {
     const { data, error, isLoading } = useFetchProductsQuery(undefined, {})
     const { ErrorMessage } = useNotify()
     const dispatch = useDispatch()
+    const selectedCartegory = useSelector(selectSelectedCartegory)
+
+    const filteredProducts = data?.filter((product: ProductState) => product.cartegory_id === selectedCartegory)
 
     useEffect(() => {
         if (error) {
@@ -36,7 +40,9 @@ const Products = () => {
         <section className="flex flex-col justify-center items-center">
             <h1 className='text-4xl font-roboto text-gray-800'>Products</h1>
             <div className="flex flex-wrap justify-center items-center my-12">
-                {data?.map((product: ProductState) => (
+                {filteredProducts.length === 0 ? data?.map((product: ProductState) => (
+                    <ProductCard key={product._id} product={product} />
+                )) : filteredProducts?.map((product: ProductState) => (
                     <ProductCard key={product._id} product={product} />
                 ))}
             </div>

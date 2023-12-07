@@ -11,7 +11,7 @@ export const cartegoryApi = createApi({
                 url: '/cartegory',
                 method: 'GET',
             }),
-        }),
+        })
     }),
 })
 

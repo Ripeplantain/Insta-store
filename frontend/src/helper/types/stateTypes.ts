@@ -27,6 +27,11 @@ export type CartegoryState = {
     updatedAt: string;
 }
 
+export type CartegorySliceState = {
+    cartegory: CartegoryState[];
+    selectedCartegory: string | null;
+}
+
 export type ProductState = {
     _id: string;
     name: string;
