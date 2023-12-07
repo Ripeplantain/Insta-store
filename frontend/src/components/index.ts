@@ -8,9 +8,10 @@ import Navbar from "./navigation/Navbar";
 
 import Cartegories from "./widget/Cartegories";
 import  Products from "./widget/Products";
+import Footer from "./widget/Footer";
 
 
 export {
     Login, Register, Loader, Navbar, Cartegories, Products,
-    ProductCard
+    ProductCard, Footer
 }
