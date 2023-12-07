@@ -6,6 +6,7 @@ import { ServerError } from '../../helper/types/errorType'
 import { CartegoryState } from '../../helper/types/stateTypes'
 import { useDispatch } from 'react-redux'
 import { setCartegory, setSelectedCartegory } from '../../state/feature/cartegorySlice'
+import { setSearchProduct } from '../../state/feature/productSlice'
 
 
 const Cartegories = () => {
@@ -14,6 +15,10 @@ const Cartegories = () => {
     const { ErrorMessage } = useNotify()
     const { data, error, isLoading } = useFetchCarteogroriesQuery( undefined, {})
 
+    const handleClick = (cartegoryId: string) => {
+        dispatch(setSelectedCartegory(cartegoryId))
+        dispatch(setSearchProduct(null))
+    }
 
     useEffect(() => {
         if (error ) {
@@ -40,7 +45,7 @@ const Cartegories = () => {
             <div className='flex flex-wrap justify-center items-center my-8'>
                 {data?.map((cartegory: CartegoryState) => (
                     <div
-                        onClick={() => dispatch(setSelectedCartegory(cartegory._id))}
+                        onClick={() => handleClick(cartegory._id)}
                         key={cartegory._id}
                         className='flex flex-col justify-center items-center m-4 border-2 border-gray-800 rounded-3xl hover:bg-black cursor-pointer hover:text-white delay-100 ease-in-out p-4'>
                         <h1 className='text-lg font-roboto'>{cartegory.name}</h1>

@@ -7,7 +7,7 @@ const Footer = () => {
             <div className="bg-black text-white py-4 px-6 flex flex-col md:flex-row justify-around text-center items-center gap-4">
                 <div className="flex flex-col gap-2">
                     <h1 className="text-2xl font-roboto">Insta Store</h1>
-                    <p className="text-sm font-roboto">The best place to buy your favorite products</p>
+                    <p className="text-sm font-roboto">Become a vendor with us</p>
                 </div>
                 <div className="flex flex-col gap-2">
                     <h1 className="text-xl font-roboto">Contact Us</h1>

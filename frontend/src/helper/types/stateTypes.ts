@@ -48,3 +48,8 @@ export type ProductState = {
     createdAt: string;
     updatedAt: string;
 }
+
+export type ProductSliceState = {
+    product: ProductState[];
+    searchedProduct: string | null;
+}
