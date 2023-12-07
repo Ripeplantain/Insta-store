@@ -1,5 +1,5 @@
 import React from "react"
-import { useFetchProductsQuery } from "../../api/product"
+import { useFetchProductsQuery, useFetchProductByIdQuery } from "../../api/product"
 import useNotify from "../../hooks/useNotify"
 import { useEffect } from "react"
 import { ServerError } from "../../helper/types/errorType"
@@ -13,15 +13,19 @@ import { ProductCard } from ".."
 
 const Products = () => {
 
+    const selectedCartegory = useSelector(selectSelectedCartegory)
     const { data, error, isLoading } = useFetchProductsQuery(undefined, {})
+    const {
+        data: productData,
+        error: productError,
+        isLoading: productIsLoading
+    } = useFetchProductByIdQuery(selectedCartegory, { skip: selectedCartegory === null })
     const { ErrorMessage } = useNotify()
     const dispatch = useDispatch()
-    const selectedCartegory = useSelector(selectSelectedCartegory)
 
-    const filteredProducts = data?.filter((product: ProductState) => product.cartegory_id === selectedCartegory)
 
     useEffect(() => {
-        if (error) {
+        if (error || productError) {
             const errorMessage = error as ServerError
             console.log(errorMessage)
             ErrorMessage(errorMessage.data.message)
@@ -30,9 +34,9 @@ const Products = () => {
         if (data) {
             dispatch(setProduct(data))
         }
-    }, [error, ErrorMessage, data, dispatch])
+    }, [error, ErrorMessage, data, dispatch, productError])
 
-    if (isLoading) {
+    if (isLoading || productIsLoading) {
         return <Loader />
     }
 
@@ -40,9 +44,11 @@ const Products = () => {
         <section className="flex flex-col justify-center items-center">
             <h1 className='text-4xl font-roboto text-gray-800'>Products</h1>
             <div className="flex flex-wrap justify-center items-center my-12">
-                {filteredProducts.length === 0 ? data?.map((product: ProductState) => (
+                {productData?.length === 0 && <h1 className='text-2xl font-roboto text-gray-800'>No product found</h1>}
+
+                {!productData ? data?.map((product: ProductState) => (
                     <ProductCard key={product._id} product={product} />
-                )) : filteredProducts?.map((product: ProductState) => (
+                )) : productData?.map((product: ProductState) => (
                     <ProductCard key={product._id} product={product} />
                 ))}
             </div>
