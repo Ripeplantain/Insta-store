@@ -23,7 +23,7 @@ const Cart = () => {
 
 
     return (
-        <>
+        <div className="h-screen">
             <div className="mt-[108px] bg-gray-200 p-4 text-center">
                 <InfoIcon className="w-6 h-6 inline-block mr-2 text-gray-700" />
                 <span 
@@ -118,7 +118,7 @@ const Cart = () => {
             {showPaymentModal && (
                 <PaymentModal setShowPaymentModal={setShowPaymentModal} cart={cart} />
             )}
-        </>
+        </div>
     )
 }
 

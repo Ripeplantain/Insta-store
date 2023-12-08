@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react'
-import { Navbar } from '../components'
+import { Navbar, Footer } from '../components'
 
 
 interface LayoutProp {
@@ -11,6 +11,7 @@ const AppLayout: React.FC<LayoutProp> = ( {children}) => {
         <>
             <Navbar color='black' />
             {children}
+            <Footer />
         </>
     )
 }
