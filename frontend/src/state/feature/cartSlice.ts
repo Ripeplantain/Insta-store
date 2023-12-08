@@ -6,8 +6,8 @@ import { ProductState, CartState } from "../../helper/types/stateTypes";
 
 const initialState: CartState = {
     items: localStorage.getItem("cartItems") ? JSON.parse(localStorage.getItem("cartItems")!) : [],
-    count: localStorage.getItem("cartCount") ? JSON.parse(localStorage.getItem("cartCount")!) : 0,
-    total: localStorage.getItem("cartTotal") ? JSON.parse(localStorage.getItem("cartTotal")!) : 0,
+    count: localStorage.getItem("cartItems") ? JSON.parse(localStorage.getItem("cartItems")!).length : 0,
+    total: localStorage.getItem("cartItems") ? JSON.parse(localStorage.getItem("cartItems")!).reduce((total: number, item: ProductState) => total + item.price) : 0,
 };
 
 
@@ -27,8 +27,6 @@ export const cartSlice = createSlice({
             const total = Number(state.total + product.price).toFixed(2);
             state.total = Number(total);
             localStorage.setItem("cartItems", JSON.stringify(state.items));
-            localStorage.setItem("cartCount", JSON.stringify(state.count));
-            localStorage.setItem("cartTotal", JSON.stringify(state.total));
         },
         removeItem: (state, action: PayloadAction<ProductState>) => {
             const product = action.payload;
@@ -46,16 +44,13 @@ export const cartSlice = createSlice({
             state.total = Number(total);
 
             localStorage.setItem("cartItems", JSON.stringify(state.items));
-            localStorage.setItem("cartCount", JSON.stringify(state.count));
-            localStorage.setItem("cartTotal", JSON.stringify(state.total));
+
         },
         clearCart: (state) => {
             state.items = [];
             state.count = 0;
             state.total = 0;
             localStorage.removeItem("cartItems");
-            localStorage.removeItem("cartCount");
-            localStorage.removeItem("cartTotal");
         },
         removeItemFromCart: (state, action: PayloadAction<ProductState>) => {
             const product = action.payload;
@@ -63,14 +58,11 @@ export const cartSlice = createSlice({
             if (item) {
                 state.items = state.items.filter((i) => i._id !== product._id);
             }
-            state.count--;
+            state.count = state.count - item!.quantity;
             const total = Number(state.total - product.price).toFixed(2);
             state.total = Number(total);
 
             localStorage.setItem("cartItems", JSON.stringify(state.items));
-            localStorage.setItem("cartCount", JSON.stringify(state.count));
-            localStorage.setItem("cartTotal", JSON.stringify(state.total));
-        
         }
     }
 })
