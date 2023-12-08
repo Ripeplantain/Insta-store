@@ -5,6 +5,7 @@ import { productApi } from '../api/product';
 import authSlice from './feature/authSlice';
 import cartegorySlice from './feature/cartegorySlice';
 import productSlice from './feature/productSlice';
+import cartSlice from './feature/cartSlice';
 
 
 export const store = configureStore({
@@ -12,6 +13,7 @@ export const store = configureStore({
         auth: authSlice,
         cartegory: cartegorySlice,
         product: productSlice,
+        cart: cartSlice,
         [authApi.reducerPath]: authApi.reducer,
         [cartegoryApi.reducerPath]: cartegoryApi.reducer,
         [productApi.reducerPath]: productApi.reducer,

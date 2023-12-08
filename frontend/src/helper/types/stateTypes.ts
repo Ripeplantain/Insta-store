@@ -53,3 +53,9 @@ export type ProductSliceState = {
     product: ProductState[];
     searchedProduct: string | null;
 }
+
+export type CartState = {
+    items: ProductState[];
+    count: number;
+    total: number;
+}

@@ -1,5 +1,5 @@
-import { GuestLayout, Home } from "./Layouts"
-import { Login, Register } from "./components"
+import { GuestLayout, Home, AppLayout } from "./Layouts"
+import { Login, Register, Cart } from "./components"
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 import { ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
@@ -17,6 +17,8 @@ const App = () => {
             <Route path="/register" element={<GuestLayout>
               {<Register />} 
             </GuestLayout>} />
+
+            <Route path="/cart" element={<AppLayout> {<Cart />}  </AppLayout>} />
 
             <Route path="/" element={<Home />} />
         </Routes>

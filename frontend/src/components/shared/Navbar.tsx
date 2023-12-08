@@ -10,14 +10,18 @@ import { useLogoutUserMutation } from "../../api/auth"
 import useNotify from "../../hooks/useNotify"
 import { ServerError } from "../../helper/types/errorType"
 import { logout } from "../../state/feature/authSlice"
+import { selectCartCount } from "../../state/feature/cartSlice"
 
+interface NavbarProps {
+    color: string
+}
 
-const Navbar = () => {
+const Navbar: React.FC<NavbarProps> = ({color}) => {
 
     const isAboveSmallScreens = useMediaQuery('(min-width:768px)')
     const [isMenuToggled, setIsMenuToggled] = useState<boolean>(false)
     const [isTopofPage, setIsTopofPage] = useState<boolean>(true)
-    const navBackground = isTopofPage ? 'bg-transparent' : 'bg-black'
+    const navBackground = isTopofPage ? `bg-${color}` : 'bg-black'
     const isAuthenticated = useSelector(selectIsAuthenticated)
     const user = useSelector(selectUser)
     const refreshToken = useSelector(selectRefreshToken)
@@ -25,6 +29,7 @@ const Navbar = () => {
     const navigate = useNavigate()
     const [logoutUser, {isError, error, isSuccess}] = useLogoutUserMutation()
     const { ErrorMessage, SuccessMessage } = useNotify()
+    const cartCount = useSelector(selectCartCount)
 
     useEffect(() => {
         window.addEventListener('scroll', () => {
@@ -55,7 +60,6 @@ const Navbar = () => {
             <div>
                 <div className="flex justify-around items-center">
                     <div className="flex items-center">
-                        {/* <img src={Logo} alt="logo" className="w-20" /> */}
                         <Link
                             to="/"
                             className="text-white text-[40px] font-comingSoon font-bold ml-2">IS</Link>
@@ -64,10 +68,12 @@ const Navbar = () => {
                     {/* Desktop Nav */}
                     {isAboveSmallScreens ? (
                     <div className="flex items-center gap-8 text-white">
-                        <div className="flex items-center gap-1 cursor-pointer hover:scale-90 delay-100 transition-all ease-in-out">
+                        <Link
+                            to="/cart"
+                            className="flex items-center gap-1 cursor-pointer hover:scale-90 delay-100 transition-all ease-in-out">
                             <ShoppingCart className="text-3xl" />
-                            <span className="text-sm font-roboto">0</span>
-                        </div>
+                            <span className="text-sm font-roboto">{cartCount}</span>
+                        </Link>
                         {isAuthenticated ? (
                             <div className="flex items-center gap-8">
                                 <Link
@@ -115,7 +121,7 @@ const Navbar = () => {
                             <div className="flex flex-col items-center gap-8">
                                 <div className="flex items-center gap-1 cursor-pointer hover:scale-90 delay-100 transition-all ease-in-out">
                                     <ShoppingCart className="text-3xl" />
-                                    <span className="text-sm font-roboto">0</span>
+                                    <span className="text-sm font-roboto">{cartCount}</span>
                                 </div>
                                 {isAuthenticated ? (
                                     <div className="flex flex-col items-center gap-8">

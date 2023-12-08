@@ -22,7 +22,7 @@ const Home = () => {
                 className="relative flex justify-center items-center overflow-hidden"
                 style={style}>
                 <div className="absolute top-0 left-0 w-full h-[80vh] bg-black/70"></div>
-                <Navbar />
+                <Navbar color="transparent" />
                 <div className="absolute bottom-0 left-0 w-full h-[80vh] flex flex-col text-center justify-center items-center gap-6">
                     <h1 className="text-6xl text-white font-playfair capitalize">Insta Store</h1>
                     <h2 className="text-2xl text-white font-roboto">The best place to buy your favorite products</h2>
