@@ -6,6 +6,7 @@ import ProductCard from "./shared/ProductCard";
 import Navbar from "./shared/Navbar";
 import Footer from "./shared/Footer";
 
+import PaymentModal from "./modals/PaymentModal";
 
 import Cartegories from "./widget/Cartegories";
 import  Products from "./widget/Products";
@@ -14,5 +15,5 @@ import Cart from "./widget/Cart";
 
 export {
     Login, Register, Loader, Navbar, Cartegories, Products,
-    ProductCard, Footer, Cart
+    ProductCard, Footer, Cart, PaymentModal
 }

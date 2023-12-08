@@ -72,5 +72,6 @@ export const { addItem, removeItem, clearCart, removeItemFromCart } = cartSlice.
 export const selectCartItems = (state: RootState) => state.cart.items;
 export const selectCartCount = (state: RootState) => state.cart.count;
 export const selectCartTotal = (state: RootState) => state.cart.total;
+export const selectCart = (state: RootState) => state.cart;
 
 export default cartSlice.reducer;

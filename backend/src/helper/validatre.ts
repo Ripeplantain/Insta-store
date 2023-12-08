@@ -21,17 +21,18 @@ export const productData = z.object({
     cartegory_id: z.string().min(2).max(100),
     price: z.number().min(0),
     quantity: z.number().min(0),
-    // owner: z.string().min(2).max(100),
     picture: z.string().min(2).max(100),
 })
 
-export const orderData = z.object({
-    product: z.array(z.string().min(2).max(100)),
+const orderSchema = z.object({
+    product: z.string().min(2).max(50),
     quantity: z.number().min(0),
     location: z.string().min(2).max(100),
     total: z.number().min(0),
     paymentState: z.string().min(2).max(100),
 })
+
+export const orderData = z.array(orderSchema)
 
 export const vendorData = z.object({
     name: z.string().min(2).max(50),

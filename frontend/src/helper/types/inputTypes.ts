@@ -12,3 +12,12 @@ export type RegisterInput = {
     password: string;
     confirmPassword: string;
 };
+
+
+export type OrderInput = {
+    product: string;
+    quantity: number;
+    location: string;
+    total: number;
+    paymentState: string;
+}

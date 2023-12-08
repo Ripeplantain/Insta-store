@@ -13,9 +13,8 @@ interface Order {
 }
 
 
-export const createOrder = async (order: Order) => {
-    const newOrder = new Order(order);
-    return await newOrder.save();
+export const createOrder = async (order: Order[]) => {
+    return await Order.insertMany(order);
 }
 
 export const listOrders = async () => {

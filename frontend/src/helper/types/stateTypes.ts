@@ -59,3 +59,16 @@ export type CartState = {
     count: number;
     total: number;
 }
+
+export type OrderState = {
+    _id: string;
+    client: string;
+    product: string[];
+    quantity: number[];
+    status: string;
+    location: string;
+    total: number;
+    paymentState: string;
+    createdAt: string;
+    updatedAt: string;
+}

@@ -3,11 +3,13 @@ import { useSelector, useDispatch } from "react-redux"
 import 
     { 
         selectCartCount, selectCartItems, selectCartTotal,
-        addItem, removeItem, removeItemFromCart 
+        addItem, removeItem, removeItemFromCart, selectCart 
     } from "../../state/feature/cartSlice"
 import { Product } from "../../assets"
 import { DeleteIcon } from "../../assets/icons"
 import { Link } from "react-router-dom"
+import { useState } from "react"
+import { PaymentModal } from ".."
 
 
 const Cart = () => {
@@ -15,7 +17,9 @@ const Cart = () => {
     const cartCount = useSelector(selectCartCount)
     const cartItems = useSelector(selectCartItems)
     const cartTotal = useSelector(selectCartTotal)
+    const cart = useSelector(selectCart)
     const dispatch = useDispatch()
+    const [showPaymentModal, setShowPaymentModal] = useState<boolean>(false)
 
 
     return (
@@ -105,10 +109,15 @@ const Cart = () => {
 
             <div className="flex justify-center items-center my-12">
                 <button
+                    onClick={() => setShowPaymentModal(true)}
                     className="font-roboto text-xl bg-black hover:bg-gray-500 delay-100 ease-in-out text-white p-4 rounded-xl">
                         Proceed to Checkout</button>
-                
             </div>
+
+            {/* Payment Modal */}
+            {showPaymentModal && (
+                <PaymentModal setShowPaymentModal={setShowPaymentModal} cart={cart} />
+            )}
         </>
     )
 }
