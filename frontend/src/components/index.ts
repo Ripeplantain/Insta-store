@@ -12,8 +12,11 @@ import Cartegories from "./widget/Cartegories";
 import  Products from "./widget/Products";
 import Cart from "./widget/Cart";
 
+import DesktopCart from "./responsive/DesktopCart";
+import MobileCart from "./responsive/MobileCart";
+
 
 export {
     Login, Register, Loader, Navbar, Cartegories, Products,
-    ProductCard, Footer, Cart, PaymentModal
+    ProductCard, Footer, Cart, PaymentModal, DesktopCart, MobileCart
 }
