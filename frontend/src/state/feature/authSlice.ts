@@ -22,7 +22,6 @@ export const authSlice = createSlice({
             state.user = action.payload.user;
             localStorage.setItem('accessToken', action.payload.accessToken || '');
             localStorage.setItem('refreshToken', action.payload.refreshToken || '');
-            localStorage.setItem('user', JSON.stringify(action.payload.user)) 
         },
         setUser: (state, action: PayloadAction<UserState>) => {
             state.user = action.payload;
@@ -35,7 +34,6 @@ export const authSlice = createSlice({
             state.user = null;
             localStorage.removeItem('accessToken');
             localStorage.removeItem('refreshToken');
-            localStorage.removeItem('user');
         },
         tokenReceived: (state, action: PayloadAction<string>) => {
             state.accessToken = action.payload;

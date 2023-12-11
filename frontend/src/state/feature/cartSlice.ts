@@ -4,12 +4,17 @@ import { RootState } from "../store";
 import { ProductState, CartState } from "../../helper/types/stateTypes";
 
 
-const initialState: CartState = {
-    items: localStorage.getItem("cartItems") ? JSON.parse(localStorage.getItem("cartItems")!) : [],
-    count: localStorage.getItem("cartItems") ? JSON.parse(localStorage.getItem("cartItems")!).length : 0,
-    total: localStorage.getItem("cartItems") ? JSON.parse(localStorage.getItem("cartItems")!).reduce((total: number, item: ProductState) => total + item.price) : 0,
-};
+// const initialState: CartState = {
+//     items: localStorage.getItem("cartItems") ? JSON.parse(localStorage.getItem("cartItems")!) : [],
+//     count: localStorage.getItem("cartItems") ? JSON.parse(localStorage.getItem("cartItems")!).length : 0,
+//     total: localStorage.getItem("cartItems") ? JSON.parse(localStorage.getItem("cartItems")!).reduce((total: number, item: ProductState) => total + item.price) : 0,
+// };
 
+const initialState: CartState = {
+    items: [],
+    count: 0,
+    total: 0
+}
 
 export const cartSlice = createSlice({
     name: "cart",
@@ -26,7 +31,7 @@ export const cartSlice = createSlice({
             state.count++;
             const total = Number(state.total + product.price).toFixed(2);
             state.total = Number(total);
-            localStorage.setItem("cartItems", JSON.stringify(state.items));
+            // localStorage.setItem("cartItems", JSON.stringify(state.items));
         },
         removeItem: (state, action: PayloadAction<ProductState>) => {
             const product = action.payload;
@@ -43,7 +48,7 @@ export const cartSlice = createSlice({
             const total = Number(state.total - product.price).toFixed(2);
             state.total = Number(total);
 
-            localStorage.setItem("cartItems", JSON.stringify(state.items));
+            // localStorage.setItem("cartItems", JSON.stringify(state.items));
 
         },
         clearCart: (state) => {
@@ -62,7 +67,7 @@ export const cartSlice = createSlice({
             const total = Number(state.total - product.price).toFixed(2);
             state.total = Number(total);
 
-            localStorage.setItem("cartItems", JSON.stringify(state.items));
+            // localStorage.setItem("cartItems", JSON.stringify(state.items));
         }
     }
 })

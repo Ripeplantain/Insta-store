@@ -6,7 +6,7 @@ import type { CartegoryState, CartegorySliceState } from "../../helper/types/sta
 
 
 const initialState: CartegorySliceState = {
-    cartegory: localStorage.getItem('cartegory') ? JSON.parse(localStorage.getItem('cartegory')!) : [],
+    cartegory: [],
     selectedCartegory: null,
 
 }
@@ -17,7 +17,6 @@ export const cartegorySlice = createSlice({
     reducers: {
         setCartegory: (state, action: PayloadAction<CartegoryState[]>) => {
             state.cartegory = action.payload;
-            localStorage.setItem('cartegory', JSON.stringify(state));
         },
         addCartegory: (state, action: PayloadAction<CartegoryState>) => {
             state.cartegory.push(action.payload);

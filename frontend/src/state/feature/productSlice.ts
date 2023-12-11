@@ -15,7 +15,7 @@ export const productSlice = createSlice({
     reducers: {
         setProduct: (state, action: PayloadAction<ProductState[]>) => {
             state.product = action.payload;
-            localStorage.setItem('product', JSON.stringify(state));
+            // localStorage.setItem('product', JSON.stringify(state));
         },
         addProduct: (state, action: PayloadAction<ProductState>) => {
             state.product.push(action.payload);
