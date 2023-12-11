@@ -72,3 +72,13 @@ export type OrderState = {
     createdAt: string;
     updatedAt: string;
 }
+
+export type VendorState = {
+    _id: string;
+    name: string;
+    description: string;
+    user: string;
+    diliveryType: string;
+    createdAt: string;
+    updatedAt: string;
+}

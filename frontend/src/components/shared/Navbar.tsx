@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { ShoppingCart, UserIcon, NavIcon, CloseIcon } from "../../assets/icons"
+import { ShoppingCart, UserIcon, NavIcon, CloseIcon, MarketIcon } from "../../assets/icons"
 import useMediaQuery from "../../hooks/useMediaQuery"
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
@@ -108,9 +108,9 @@ const Navbar: React.FC<NavbarProps> = ({color}) => {
                         {user?.role === "vendor" && (
                             <Link
                                 to="/vendor"
-                                className="flex items-center gap-1 cursor-pointer hover:scale-90 delay-100 transition-all ease-in-out">
-                                <UserIcon className="text-2xl" />
-                                <span className="text-sm font-roboto">Vendor</span>
+                                className="flex items-center gap-2 cursor-pointer hover:scale-90 delay-100 transition-all ease-in-out">
+                                <MarketIcon className="text-2xl" />
+                                <span className="text-sm font-roboto">Vendor Dashboard</span>
                             </Link>
                         )}
 
@@ -153,10 +153,10 @@ const Navbar: React.FC<NavbarProps> = ({color}) => {
                                 {isAuthenticated ? (
                                     <div className="flex flex-col items-center gap-8">
                                         <Link
-                                            to="/dashboard"
+                                            to="/orders"
                                             className="flex items-center gap-1 cursor-pointer hover:scale-90 delay-100 transition-all ease-in-out">
                                             <UserIcon className="text-2xl" />
-                                            <span className="text-sm font-roboto">Hello {user?.firstName}</span>
+                                            <span className="text-sm font-roboto">User Profile</span>
                                         </Link>
                                         <button
                                             onClick={() => logoutUser(refreshToken)}
@@ -185,9 +185,9 @@ const Navbar: React.FC<NavbarProps> = ({color}) => {
                                 {user?.role === "vendor" && (
                                     <Link
                                         to="/vendor"
-                                        className="flex items-center gap-1 cursor-pointer hover:scale-90 delay-100 transition-all ease-in-out">
-                                        <UserIcon className="text-2xl" />
-                                        <span className="text-sm font-roboto">Vendor</span>
+                                        className="flex items-center gap-2 cursor-pointer hover:scale-90 delay-100 transition-all ease-in-out">
+                                        <MarketIcon className="text-2xl" />
+                                        <span className="text-sm font-roboto">Vendor Dashboard</span>
                                     </Link>
                                 )}
 

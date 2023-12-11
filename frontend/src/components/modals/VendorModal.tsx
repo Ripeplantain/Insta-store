@@ -1,9 +1,16 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { CloseIcon, InfoIcon } from '../../assets/icons'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 import { vendorSchema } from '../../helper/validation'
 import { VendorInput } from '../../helper/types/inputTypes'
+import { useCreateVendorMutation } from '../../api/vendor'
+import { Loader } from '..'
+import useNotify from '../../hooks/useNotify'
+import { useDispatch } from 'react-redux'
+import { setVendor } from '../../state/feature/vendorSlice'
+import { updateUserType } from '../../state/feature/authSlice'
+import { ServerError } from '../../helper/types/errorType'
 
 
 interface Props {
@@ -12,10 +19,32 @@ interface Props {
 
 const VendorModal: React.FC<Props> = ({setShowVendorModal}) => {
 
+    const dispatch = useDispatch()
+    const { SuccessMessage, ErrorMessage } = useNotify()
+    const [createVendor, { data: vendorData, isLoading, isError , error }] = useCreateVendorMutation()
     const { register, handleSubmit, formState: { errors } } = useForm<VendorInput>({
         resolver: yupResolver(vendorSchema)
     })
-    const onSubmit = (data: VendorInput) => console.log(data)
+    const onSubmit = (data: VendorInput) => createVendor(data)
+
+    useEffect(() => {
+        if (vendorData) {
+            dispatch(setVendor(vendorData))
+            dispatch(updateUserType('vendor'))
+            SuccessMessage('Vendor application submitted successfully')
+            setShowVendorModal(false)
+        }
+
+        if (isError) {
+            const errorMessage = error as ServerError
+            console.log(errorMessage)
+            ErrorMessage(errorMessage.data.message)
+        }
+    }, [vendorData, dispatch, SuccessMessage, setShowVendorModal, isError, ErrorMessage, error])
+
+    if (isLoading) return <Loader />
+
+
 
     return (
         <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center z-50">

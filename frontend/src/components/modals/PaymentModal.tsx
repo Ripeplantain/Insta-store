@@ -43,7 +43,6 @@ const PaymentModal: React.FC<PaymentModalProps> = ({setShowPaymentModal, cart}) 
 
     useEffect(() => {
         if (isError) {
-            console.log(error)
             const errorMessage = error as ServerError
             ErrorMessage(errorMessage.data.message)
         }
