@@ -11,6 +11,7 @@ import useNotify from "../../hooks/useNotify"
 import { ServerError } from "../../helper/types/errorType"
 import { logout } from "../../state/feature/authSlice"
 import { selectCartCount } from "../../state/feature/cartSlice"
+import { UserDropDown, VendorModal } from ".."
 
 interface NavbarProps {
     color: string
@@ -20,6 +21,8 @@ const Navbar: React.FC<NavbarProps> = ({color}) => {
 
     const isAboveSmallScreens = useMediaQuery('(min-width:768px)')
     const [isMenuToggled, setIsMenuToggled] = useState<boolean>(false)
+    const [showDropDown, setShowDropDown] = useState<boolean>(false)
+    const [showVendorModal, setShowVendorModal] = useState<boolean>(false)
     const [isTopofPage, setIsTopofPage] = useState<boolean>(true)
     const navBackground = isTopofPage ? `bg-${color}` : 'bg-black'
     const isAuthenticated = useSelector(selectIsAuthenticated)
@@ -76,16 +79,11 @@ const Navbar: React.FC<NavbarProps> = ({color}) => {
                         </Link>
                         {isAuthenticated ? (
                             <div className="flex items-center gap-8">
-                                <Link
-                                    to="/dashboard"
+                                <button
+                                    onClick={() => setShowDropDown(!showDropDown)}
                                     className="flex items-center gap-1 cursor-pointer hover:scale-90 delay-100 transition-all ease-in-out">
                                     <UserIcon className="text-2xl" />
                                     <span className="text-sm font-roboto">Hello {user?.firstName}</span>
-                                </Link>
-                                <button
-                                    onClick={() => logoutUser(refreshToken)}
-                                    className="bg-gray-800 hover:bg-red-500 delay-100 ease-in-out p-4 rounded-2xl">
-                                    Logout
                                 </button>
                             </div>
                         ) : (
@@ -95,6 +93,33 @@ const Navbar: React.FC<NavbarProps> = ({color}) => {
                                 <UserIcon className="text-2xl" />
                                 <span className="text-sm font-roboto">Login</span>
                             </Link>
+                        )}
+
+                        {/* Dashboards */}
+                        {user?.role === "admin" && (
+                            <Link
+                                to="/admin"
+                                className="flex items-center gap-1 cursor-pointer hover:scale-90 delay-100 transition-all ease-in-out">
+                                <UserIcon className="text-2xl" />
+                                <span className="text-sm font-roboto">Admin</span>
+                            </Link>
+                        )}
+
+                        {user?.role === "vendor" && (
+                            <Link
+                                to="/vendor"
+                                className="flex items-center gap-1 cursor-pointer hover:scale-90 delay-100 transition-all ease-in-out">
+                                <UserIcon className="text-2xl" />
+                                <span className="text-sm font-roboto">Vendor</span>
+                            </Link>
+                        )}
+
+                        {user?.role === "client" && (
+                            <button
+                                onClick={() => setShowVendorModal(!showVendorModal)}
+                                className="bg-yellow-700 hover:bg-yellow-500 delay-100 ease-in-out p-4">
+                                Become a Vendor
+                            </button>
                         )}
                     </div> 
                     ) : (
@@ -147,9 +172,41 @@ const Navbar: React.FC<NavbarProps> = ({color}) => {
                                         <span className="text-sm font-roboto">Login</span>
                                     </Link>
                                 )}
+                                {/* Dashboards */}
+                                {user?.role === "admin" && (
+                                    <Link
+                                        to="/admin"
+                                        className="flex items-center gap-1 cursor-pointer hover:scale-90 delay-100 transition-all ease-in-out">
+                                        <UserIcon className="text-2xl" />
+                                        <span className="text-sm font-roboto">Admin</span>
+                                    </Link>
+                                )}
+
+                                {user?.role === "vendor" && (
+                                    <Link
+                                        to="/vendor"
+                                        className="flex items-center gap-1 cursor-pointer hover:scale-90 delay-100 transition-all ease-in-out">
+                                        <UserIcon className="text-2xl" />
+                                        <span className="text-sm font-roboto">Vendor</span>
+                                    </Link>
+                                )}
+
+                                {user?.role === "client" && (
+                                    <button
+                                        onClick={() => setShowVendorModal(!showVendorModal)}
+                                        className="bg-yellow-700 p-4 text-white">
+                                        Become a Vendor
+                                    </button>
+                                )}
                             </div>
                         </motion.div>
                     )}
+
+                    {/* User DropDown */}
+                    {showDropDown && <UserDropDown />}
+
+                    {/* Vendor Modal */}
+                    {showVendorModal && <VendorModal setShowVendorModal={setShowVendorModal} />}
                 </div>
             </div>
         </nav>

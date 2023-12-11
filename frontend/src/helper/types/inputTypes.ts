@@ -21,3 +21,9 @@ export type OrderInput = {
     total: number;
     paymentState: string;
 }
+
+export type VendorInput = {
+    name: string;
+    description: string;
+    deliveryType: string;
+}

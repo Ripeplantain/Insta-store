@@ -15,3 +15,9 @@ export const registerSchema = yup.object().shape({
   password: yup.string().required().min(6, "Password must be at least 6 characters"),
   confirmPassword: yup.string().required().oneOf([yup.ref('password')], 'Passwords must match')
 });
+
+export const vendorSchema = yup.object().shape({
+  name: yup.string().required("Name is required"),
+  description: yup.string().required("Description is required").min(4, "Description must be at least 4 characters"),
+  deliveryType: yup.string().required("Delivery type is required"),
+})

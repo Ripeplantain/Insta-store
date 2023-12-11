@@ -7,6 +7,8 @@ import Navbar from "./shared/Navbar";
 import Footer from "./shared/Footer";
 
 import PaymentModal from "./modals/PaymentModal";
+import UserDropDown from "./modals/UserDropDown";
+import VendorModal from "./modals/VendorModal";
 
 import Cartegories from "./widget/Cartegories";
 import  Products from "./widget/Products";
@@ -18,5 +20,6 @@ import MobileCart from "./responsive/MobileCart";
 
 export {
     Login, Register, Loader, Navbar, Cartegories, Products,
-    ProductCard, Footer, Cart, PaymentModal, DesktopCart, MobileCart
+    ProductCard, Footer, Cart, PaymentModal, DesktopCart, MobileCart,
+    UserDropDown, VendorModal
 }
