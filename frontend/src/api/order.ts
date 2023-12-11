@@ -1,13 +1,14 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { baseUrl } from "../helper/constant";
+import { createApi } from "@reduxjs/toolkit/query/react";
+// import { baseUrl } from "../helper/constant";
 import { OrderState } from "../helper/types/stateTypes";
 import { OrderInput } from "../helper/types/inputTypes";
+import { baseQueryWithReauth } from "./customQuery";
 
 
 
 export const orderApi = createApi({
     reducerPath: 'orderApi',
-    baseQuery: fetchBaseQuery({ baseUrl: baseUrl }),
+    baseQuery: baseQueryWithReauth,
     endpoints: (builder) => ({
         fetchOrders: builder.query<OrderState[], undefined>({
             query: () => ({

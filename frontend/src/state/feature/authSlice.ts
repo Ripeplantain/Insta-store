@@ -36,12 +36,16 @@ export const authSlice = createSlice({
             localStorage.removeItem('accessToken');
             localStorage.removeItem('refreshToken');
             localStorage.removeItem('user');
+        },
+        tokenReceived: (state, action: PayloadAction<string>) => {
+            state.accessToken = action.payload;
+            localStorage.setItem('accessToken', action.payload)
         }
     }
 })
 
 
-export const { setAuth, setUser, logout } = authSlice.actions;
+export const { setAuth, setUser, logout, tokenReceived } = authSlice.actions;
 export const selectAuth = (state: RootState) => state.auth;
 export const selectUser = (state: RootState) => state.auth.user;
 export const selectIsAuthenticated = (state: RootState) => state.auth.isAuthenticated;

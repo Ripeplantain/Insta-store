@@ -119,10 +119,12 @@ const Navbar: React.FC<NavbarProps> = ({color}) => {
 
                             {/* Menu Items */}
                             <div className="flex flex-col items-center gap-8">
-                                <div className="flex items-center gap-1 cursor-pointer hover:scale-90 delay-100 transition-all ease-in-out">
+                                <Link
+                                    to="/cart"
+                                    className="flex items-center gap-1 cursor-pointer hover:scale-90 delay-100 transition-all ease-in-out">
                                     <ShoppingCart className="text-3xl" />
                                     <span className="text-sm font-roboto">{cartCount}</span>
-                                </div>
+                                </Link>
                                 {isAuthenticated ? (
                                     <div className="flex flex-col items-center gap-8">
                                         <Link
