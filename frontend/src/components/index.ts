@@ -13,6 +13,10 @@ import VendorModal from "./modals/VendorModal";
 import Cartegories from "./widget/Cartegories";
 import  Products from "./widget/Products";
 import Cart from "./widget/Cart";
+import Vendor from "./widget/Vendor";
+import OrderTable from "./widget/OrderTable";
+import ProductForm from "./widget/ProductForm";
+import ProductTable from "./widget/ProductTable";
 
 import DesktopCart from "./responsive/DesktopCart";
 import MobileCart from "./responsive/MobileCart";
@@ -21,5 +25,5 @@ import MobileCart from "./responsive/MobileCart";
 export {
     Login, Register, Loader, Navbar, Cartegories, Products,
     ProductCard, Footer, Cart, PaymentModal, DesktopCart, MobileCart,
-    UserDropDown, VendorModal
+    UserDropDown, VendorModal, Vendor, OrderTable, ProductForm, ProductTable
 }

@@ -27,3 +27,12 @@ export type VendorInput = {
     description: string;
     deliveryType: string;
 }
+
+export type ProductInput = {
+    name: string;
+    description: string;
+    price: number;
+    quantity: number;
+    category_id: string;
+    // picture: string;
+}

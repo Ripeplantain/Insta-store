@@ -21,3 +21,12 @@ export const vendorSchema = yup.object().shape({
   description: yup.string().required("Description is required").min(4, "Description must be at least 4 characters"),
   deliveryType: yup.string().required("Delivery type is required"),
 })
+
+export const productSchema = yup.object().shape({
+  name: yup.string().required("Name is required"),
+  description: yup.string().required("Description is required").min(4, "Description must be at least 4 characters"),
+  price: yup.number().required("Price is required").min(1, "Price must be at least 1"),
+  quantity: yup.number().required("Quantity is required").min(1, "Quantity must be at least 1"),
+  category_id: yup.string().required("Category is required"),
+  picuture: yup.string().required("Image is required")
+})
