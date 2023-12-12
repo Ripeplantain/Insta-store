@@ -5,7 +5,7 @@ import { productSchema } from '../../helper/validation'
 import { ProductInput } from '../../helper/types/inputTypes'
 import { useSelector } from 'react-redux'
 import { selectCartegory } from '../../state/feature/cartegorySlice'
-import { DropZone } from '../shared/Dropzone'
+import { Dropzone } from '..'
 
 
 const ProductForm = () => {
@@ -18,10 +18,13 @@ const ProductForm = () => {
 
     return (
         <div>
-            <h1 className="font-roboto text-3xl uppercase tracking-wider">
+            <h1 className="font-roboto text-3xl uppercase tracking-wider text-center">
                 Add Product
             </h1>
-            <DropZone />
+
+            {/* image form */}
+            <Dropzone />
+
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="flex flex-col gap-4 my-8">
                     <div className="flex flex-col gap-2">
@@ -75,6 +78,12 @@ const ProductForm = () => {
                             ))}
                         </select>
                     </div>
+
+                    <button
+                        type="submit"
+                        className="bg-cyan-500 text-white mt-6 py-2 px-4 rounded-lg hover:bg-cyan-600 focus:outline-none focus:bg-cyan-600">
+                        Add Product
+                    </button>
                 </div>
             </form>
         </div>

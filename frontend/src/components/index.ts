@@ -5,6 +5,7 @@ import Loader from "./shared/Loader";
 import ProductCard from "./shared/ProductCard";
 import Navbar from "./shared/Navbar";
 import Footer from "./shared/Footer";
+import Dropzone from "./shared/DropZone";
 
 import PaymentModal from "./modals/PaymentModal";
 import UserDropDown from "./modals/UserDropDown";
@@ -25,5 +26,5 @@ import MobileCart from "./responsive/MobileCart";
 export {
     Login, Register, Loader, Navbar, Cartegories, Products,
     ProductCard, Footer, Cart, PaymentModal, DesktopCart, MobileCart,
-    UserDropDown, VendorModal, Vendor, OrderTable, ProductForm, ProductTable
+    UserDropDown, VendorModal, Vendor, OrderTable, ProductForm, ProductTable, Dropzone
 }
