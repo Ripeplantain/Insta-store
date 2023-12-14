@@ -34,5 +34,5 @@ export type ProductInput = {
     price: number;
     quantity: number;
     category_id: string;
-    // picture: string;
+    picture: string | undefined;
 }

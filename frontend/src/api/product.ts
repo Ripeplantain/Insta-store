@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { baseUrl } from "../helper/constant";
 import { ProductState } from "../helper/types/stateTypes";
+import { ProductInput } from "../helper/types/inputTypes";
 
 
 export const productApi = createApi({
@@ -24,10 +25,20 @@ export const productApi = createApi({
                 url: `/product/all/?name=${search}`,
                 method: 'GET',
             })
-        })
+        }),
+        createProduct: builder.mutation<ProductState, ProductInput>({
+            query: (body) => ({
+                url: '/product',
+                method: 'POST',
+                body: body,
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+        }),
     })
 })
 
 export const {
-    useFetchProductsQuery, useFetchProductByIdQuery, useSearchProductQuery
+    useFetchProductsQuery, useFetchProductByIdQuery, useSearchProductQuery, useCreateProductMutation
 } = productApi;

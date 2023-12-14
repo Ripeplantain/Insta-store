@@ -5,10 +5,14 @@ import { ServerError } from '../../helper/types/errorType'
 import useNotify from '../../hooks/useNotify'
 
 
-const DropZone = () => {
+interface DropZoneProps {
+    setImagePath: React.Dispatch<React.SetStateAction<string>>
+}
+
+const DropZone: React.FC<DropZoneProps> = ( {setImagePath} ) => {
 
     const imageRef = useRef<HTMLInputElement>(null)
-    const [uploadFile, { isLoading, isError, error, isSuccess }] = useUploadFileMutation()
+    const [uploadFile, { isLoading, isError, error, isSuccess, data }] = useUploadFileMutation()
     const { SuccessMessage, ErrorMessage } = useNotify()
 
     const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,8 +28,11 @@ const DropZone = () => {
             ErrorMessage(err.data.message)
         }
 
-        if( isSuccess) SuccessMessage('Image uploaded successfully')
-    })
+        if (isSuccess){
+            setImagePath(data.data)
+            SuccessMessage('Image uploaded successfully')
+        }
+    }, [isError, isSuccess, ErrorMessage, SuccessMessage, error, setImagePath, data])
 
     if (isLoading) return <Loader />
 
