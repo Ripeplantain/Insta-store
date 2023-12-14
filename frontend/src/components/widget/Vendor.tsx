@@ -7,7 +7,7 @@ const Vendor = () => {
     const selectedStyle = 'bg-red-500 hover:bg-cyan-700 text-white delay-100 font-roboto cursor-pointer p-5 rounded-xl'
 
     return (
-        <div className='flex flex-col items-center justify-center mt-[10rem]'>
+        <div className='flex flex-col items-center justify-center mt-[10rem] p-4'>
             <h1 className='text-3xl uppercase tracking-wider font-playfair'>Your Dashboard</h1>
             <div className="flex flex-col items-centerr justify-center my-12 gap-6">
                 {/* Dashboard box */}

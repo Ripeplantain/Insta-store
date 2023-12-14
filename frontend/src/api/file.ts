@@ -9,10 +9,11 @@ export const fileApi = createApi({
     endpoints: (builder) => ({
         uploadFile: builder.mutation({
             query: (file) => ({
-                url: "/upload",
+                url: "/file",
                 method: "POST",
                 body: file,
                 headers: {
+                    ContentType: "multipart/form-data",
                     Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
                 },
             }),

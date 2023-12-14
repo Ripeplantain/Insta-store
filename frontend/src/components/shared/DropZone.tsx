@@ -2,12 +2,32 @@ import React, { useRef, useEffect} from 'react'
 import { useUploadFileMutation } from '../../api/file'
 import { Loader } from '..'
 import { ServerError } from '../../helper/types/errorType'
+import useNotify from '../../hooks/useNotify'
 
 
 const DropZone = () => {
 
     const imageRef = useRef<HTMLInputElement>(null)
-    const [uploadFile, { isLoading, isError, error }] = useUploadFileMutation()
+    const [uploadFile, { isLoading, isError, error, isSuccess }] = useUploadFileMutation()
+    const { SuccessMessage, ErrorMessage } = useNotify()
+
+    const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault()
+        const formData = new FormData()
+        formData.append('file', imageRef.current?.files![0] as Blob)
+        uploadFile(formData)
+    }
+
+    useEffect(() => {
+        if (isError){
+            const err = error as ServerError
+            ErrorMessage(err.data.message)
+        }
+
+        if( isSuccess) SuccessMessage('Image uploaded successfully')
+    })
+
+    if (isLoading) return <Loader />
 
     return (
         <div>
@@ -18,6 +38,7 @@ const DropZone = () => {
                             Upload Image
                         </label>
                         <input
+                            onChange={handleFileUpload}
                             ref={imageRef}
                             type="file" id="profile-picture" className="hidden" />
                         <p className="text-gray-500 text-sm mt-2">Drag 'n' drop some files here, or click to select files</p>
