@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.post('/api/register', registerUser);
 router.post('/api/login', loginUser);
-router.post('/api/refresh-token', refreshToken);
+router.post('/api/refresh', refreshToken);
 router.post('/api/logout', logoutUser);
 
 export default router;

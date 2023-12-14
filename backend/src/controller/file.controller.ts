@@ -10,7 +10,7 @@ export const uploadFileController = async (req: any, res: Response) => {
     try {
         if(!req.file){
             return res.status(400).json({
-                message: "Upload file failed",
+                message: "No file uploaded",
             });
         }
         res.status(200).json({
